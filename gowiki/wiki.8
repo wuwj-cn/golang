@@ -1,0 +1,722 @@
+go object linux 386 release.r60.3 9516
+  exports automatically generated from
+  wiki.go in package "main"
+
+$$  // exports
+    package main
+	import ioutil "io/ioutil"
+	import template "template"
+	import runtime "runtime"
+	import os "os"
+	import http "http"
+	import regexp "regexp"
+	type "os".Error interface { String() string }
+	type "".Page struct { Title string; Body []uint8 }
+	func (p *"".Page) save () "os".Error
+	func "".loadPage (title string) (? *"".Page, ? "os".Error)
+	type "http".ResponseWriter interface { Header() "http".Header; Write(? []uint8) (? int, ? "os".Error); WriteHeader(? int) }
+	import io "io" // indirect
+	type "io".Writer interface { Write(p []uint8) (n int, err "os".Error) }
+	type "http".Header map[string] []string
+	func (h "http".Header) Add (key string, value string)
+	func (h "http".Header) Del (key string)
+	func (h "http".Header) Get (key string) string
+	func (h "http".Header) Set (key string, value string)
+	func (h "http".Header) Write (w "io".Writer) "os".Error
+	func (h "http".Header) WriteSubset (w "io".Writer, exclude map[string] bool) "os".Error
+	type "http".Cookie struct { Name string; Value string; Path string; Domain string; Expires "time".Time; RawExpires string; MaxAge int; Secure bool; HttpOnly bool; Raw string; Unparsed []string }
+	func (c *"http".Cookie) String () string
+	import time "time" // indirect
+	type "time".Time struct { Year int64; Month int; Day int; Hour int; Minute int; Second int; Nanosecond int; Weekday int; ZoneOffset int; Zone string }
+	func (t *"time".Time) Format (layout string) string
+	func (t *"time".Time) Nanoseconds () int64
+	func (t *"time".Time) Seconds () int64
+	func (t *"time".Time) String () string
+	func (t *"time".Time) parseNanoseconds (value string, nbytes int) (rangErrString string, err "os".Error)
+	import multipart "mime/multipart" // indirect
+	type "mime/multipart".File interface { Close() "os".Error; Read(p []uint8) (n int, err "os".Error); ReadAt(p []uint8, off int64) (n int, err "os".Error); Seek(offset int64, whence int) (ret int64, err "os".Error) }
+	type "mime/multipart".FileHeader struct { Filename string; Header "net/textproto".MIMEHeader; content []uint8; tmpfile string }
+	func (fh *"mime/multipart".FileHeader) Open () (? "mime/multipart".File, ? "os".Error)
+	import textproto "net/textproto" // indirect
+	type "net/textproto".MIMEHeader map[string] []string
+	func (h "net/textproto".MIMEHeader) Add (key string, value string)
+	func (h "net/textproto".MIMEHeader) Del (key string)
+	func (h "net/textproto".MIMEHeader) Get (key string) string
+	func (h "net/textproto".MIMEHeader) Set (key string, value string)
+	type "mime/multipart".Part struct { Header "net/textproto".MIMEHeader; buffer *"bytes".Buffer; mr *"mime/multipart".Reader; disposition string; dispositionParams map[string] string }
+	func (bp *"mime/multipart".Part) Close () "os".Error
+	func (p *"mime/multipart".Part) FileName () string
+	func (p *"mime/multipart".Part) FormName () string
+	func (bp *"mime/multipart".Part) Read (p []uint8) (n int, err "os".Error)
+	func (p *"mime/multipart".Part) parseContentDisposition ()
+	func (bp *"mime/multipart".Part) populateHeaders () "os".Error
+	import bytes "bytes" // indirect
+	type "io".Reader interface { Read(p []uint8) (n int, err "os".Error) }
+	type "bytes".Buffer struct { buf []uint8; off int; runeBytes [4]uint8; bootstrap [64]uint8; lastRead "bytes".readOp }
+	func (b *"bytes".Buffer) Bytes () []uint8
+	func (b *"bytes".Buffer) Len () int
+	func (b *"bytes".Buffer) Next (n int) []uint8
+	func (b *"bytes".Buffer) Read (p []uint8) (n int, err "os".Error)
+	func (b *"bytes".Buffer) ReadByte () (c uint8, err "os".Error)
+	func (b *"bytes".Buffer) ReadBytes (delim uint8) (line []uint8, err "os".Error)
+	func (b *"bytes".Buffer) ReadFrom (r "io".Reader) (n int64, err "os".Error)
+	func (b *"bytes".Buffer) ReadRune () (r int, size int, err "os".Error)
+	func (b *"bytes".Buffer) ReadString (delim uint8) (line string, err "os".Error)
+	func (b *"bytes".Buffer) Reset ()
+	func (b *"bytes".Buffer) String () string
+	func (b *"bytes".Buffer) Truncate (n int)
+	func (b *"bytes".Buffer) UnreadByte () "os".Error
+	func (b *"bytes".Buffer) UnreadRune () "os".Error
+	func (b *"bytes".Buffer) Write (p []uint8) (n int, err "os".Error)
+	func (b *"bytes".Buffer) WriteByte (c uint8) "os".Error
+	func (b *"bytes".Buffer) WriteRune (r int) (n int, err "os".Error)
+	func (b *"bytes".Buffer) WriteString (s string) (n int, err "os".Error)
+	func (b *"bytes".Buffer) WriteTo (w "io".Writer) (n int64, err "os".Error)
+	func (b *"bytes".Buffer) grow (n int) int
+	type "bytes".readOp int
+	type "mime/multipart".Form struct { Value map[string] []string; File map[string] []*"mime/multipart".FileHeader }
+	func (f *"mime/multipart".Form) RemoveAll () "os".Error
+	type "mime/multipart".Reader struct { bufReader *"bufio".Reader; currentPart *"mime/multipart".Part; partsRead int; nl []uint8; nlDashBoundary []uint8; dashBoundaryDash []uint8; dashBoundary []uint8 }
+	func (mr *"mime/multipart".Reader) NextPart () (? *"mime/multipart".Part, ? "os".Error)
+	func (r *"mime/multipart".Reader) ReadForm (maxMemory int64) (f *"mime/multipart".Form, err "os".Error)
+	func (mr *"mime/multipart".Reader) isBoundaryDelimiterLine (line []uint8) bool
+	import bufio "bufio" // indirect
+	type "bufio".Reader struct { buf []uint8; rd "io".Reader; r int; w int; err "os".Error; lastByte int; lastRuneSize int }
+	func (b *"bufio".Reader) Buffered () int
+	func (b *"bufio".Reader) Peek (n int) (? []uint8, ? "os".Error)
+	func (b *"bufio".Reader) Read (p []uint8) (n int, err "os".Error)
+	func (b *"bufio".Reader) ReadByte () (c uint8, err "os".Error)
+	func (b *"bufio".Reader) ReadBytes (delim uint8) (line []uint8, err "os".Error)
+	func (b *"bufio".Reader) ReadLine () (line []uint8, isPrefix bool, err "os".Error)
+	func (b *"bufio".Reader) ReadRune () (rune int, size int, err "os".Error)
+	func (b *"bufio".Reader) ReadSlice (delim uint8) (line []uint8, err "os".Error)
+	func (b *"bufio".Reader) ReadString (delim uint8) (line string, err "os".Error)
+	func (b *"bufio".Reader) UnreadByte () "os".Error
+	func (b *"bufio".Reader) UnreadRune () "os".Error
+	func (b *"bufio".Reader) fill ()
+	func (b *"bufio".Reader) readErr () "os".Error
+	type "http".Request struct { Method string; RawURL string; URL *"url".URL; Proto string; ProtoMajor int; ProtoMinor int; Header "http".Header; Body "io".ReadCloser; ContentLength int64; TransferEncoding []string; Close bool; Host string; Form "url".Values; MultipartForm *"mime/multipart".Form; Trailer "http".Header; RemoteAddr string; TLS *"crypto/tls".ConnectionState }
+	func (r *"http".Request) AddCookie (c *"http".Cookie)
+	func (r *"http".Request) Cookie (name string) (? *"http".Cookie, ? "os".Error)
+	func (r *"http".Request) Cookies () []*"http".Cookie
+	func (r *"http".Request) FormFile (key string) (? "mime/multipart".File, ? *"mime/multipart".FileHeader, ? "os".Error)
+	func (r *"http".Request) FormValue (key string) string
+	func (r *"http".Request) MultipartReader () (? *"mime/multipart".Reader, ? "os".Error)
+	func (r *"http".Request) ParseForm () "os".Error
+	func (r *"http".Request) ParseMultipartForm (maxMemory int64) "os".Error
+	func (r *"http".Request) ProtoAtLeast (major int, minor int) bool
+	func (r *"http".Request) Referer () string
+	func (r *"http".Request) SetBasicAuth (username string, password string)
+	func (r *"http".Request) UserAgent () string
+	func (req *"http".Request) Write (w "io".Writer) "os".Error
+	func (req *"http".Request) WriteProxy (w "io".Writer) "os".Error
+	func (r *"http".Request) expectsContinue () bool
+	func (r *"http".Request) multipartReader () (? *"mime/multipart".Reader, ? "os".Error)
+	func (r *"http".Request) wantsHttp10KeepAlive () bool
+	func (req *"http".Request) write (w "io".Writer, usingProxy bool) "os".Error
+	import url "url" // indirect
+	type "url".Values map[string] []string
+	func (v "url".Values) Add (key string, value string)
+	func (v "url".Values) Del (key string)
+	func (v "url".Values) Encode () string
+	func (v "url".Values) Get (key string) string
+	func (v "url".Values) Set (key string, value string)
+	type "url".URL struct { Raw string; Scheme string; RawAuthority string; RawUserinfo string; Host string; RawPath string; Path string; OpaquePath bool; RawQuery string; Fragment string }
+	func (u *"url".URL) EncodedPath () string
+	func (url *"url".URL) IsAbs () bool
+	func (base *"url".URL) Parse (ref string) (? *"url".URL, ? "os".Error)
+	func (u *"url".URL) Query () "url".Values
+	func (base *"url".URL) ResolveReference (ref *"url".URL) *"url".URL
+	func (url *"url".URL) String () string
+	type "io".ReadCloser interface { Close() "os".Error; Read(p []uint8) (n int, err "os".Error) }
+	import tls "crypto/tls" // indirect
+	type "crypto/tls".ConnectionState struct { HandshakeComplete bool; CipherSuite uint16; NegotiatedProtocol string; NegotiatedProtocolIsMutual bool; PeerCertificates []*"crypto/x509".Certificate; VerifiedChains [][]*"crypto/x509".Certificate }
+	import x509 "crypto/x509" // indirect
+	import pkix "crypto/x509/pkix" // indirect
+	type "crypto/x509/pkix".CertificateList struct { TBSCertList "crypto/x509/pkix".TBSCertificateList; SignatureAlgorithm "crypto/x509/pkix".AlgorithmIdentifier; SignatureValue "asn1".BitString }
+	func (certList *"crypto/x509/pkix".CertificateList) HasExpired (currentTimeSeconds int64) bool
+	type "crypto/x509/pkix".TBSCertificateList struct { Raw "asn1".RawContent; Version int :"asn1:\"optional,default:2\""; Signature "crypto/x509/pkix".AlgorithmIdentifier; Issuer "crypto/x509/pkix".RDNSequence; ThisUpdate *"time".Time; NextUpdate *"time".Time; RevokedCertificates []"crypto/x509/pkix".RevokedCertificate :"asn1:\"optional\""; Extensions []"crypto/x509/pkix".Extension :"asn1:\"tag:0,optional,explicit\"" }
+	import asn1 "asn1" // indirect
+	type "asn1".RawContent []uint8
+	type "crypto/x509/pkix".AlgorithmIdentifier struct { Algorithm "asn1".ObjectIdentifier; Parameters "asn1".RawValue :"asn1:\"optional\"" }
+	type "asn1".ObjectIdentifier []int
+	func (oi "asn1".ObjectIdentifier) Equal (other "asn1".ObjectIdentifier) bool
+	type "asn1".RawValue struct { Class int; Tag int; IsCompound bool; Bytes []uint8; FullBytes []uint8 }
+	type "crypto/x509/pkix".RDNSequence []"crypto/x509/pkix".RelativeDistinguishedNameSET
+	type "crypto/x509/pkix".RelativeDistinguishedNameSET []"crypto/x509/pkix".AttributeTypeAndValue
+	type "crypto/x509/pkix".AttributeTypeAndValue struct { Type "asn1".ObjectIdentifier; Value interface { } }
+	type "crypto/x509/pkix".RevokedCertificate struct { SerialNumber *"big".Int; RevocationTime *"time".Time; Extensions []"crypto/x509/pkix".Extension :"asn1:\"optional\"" }
+	import big "big" // indirect
+	import fmt "fmt" // indirect
+	type "fmt".State interface { Flag(c int) bool; Precision() (prec int, ok bool); Width() (wid int, ok bool); Write(b []uint8) (ret int, err "os".Error) }
+	import rand "rand" // indirect
+	type "rand".Rand struct { src "rand".Source }
+	func (r *"rand".Rand) ExpFloat64 () float64
+	func (r *"rand".Rand) Float32 () float32
+	func (r *"rand".Rand) Float64 () float64
+	func (r *"rand".Rand) Int () int
+	func (r *"rand".Rand) Int31 () int32
+	func (r *"rand".Rand) Int31n (n int32) int32
+	func (r *"rand".Rand) Int63 () int64
+	func (r *"rand".Rand) Int63n (n int64) int64
+	func (r *"rand".Rand) Intn (n int) int
+	func (r *"rand".Rand) NormFloat64 () float64
+	func (r *"rand".Rand) Perm (n int) []int
+	func (r *"rand".Rand) Seed (seed int64)
+	func (r *"rand".Rand) Uint32 () uint32
+	type "rand".Source interface { Int63() int64; Seed(seed int64) }
+	type "fmt".ScanState interface { Read(buf []uint8) (n int, err "os".Error); ReadRune() (rune int, size int, err "os".Error); SkipSpace(); Token(skipSpace bool, f func(? int) bool) (token []uint8, err "os".Error); UnreadRune() "os".Error; Width() (wid int, ok bool) }
+	type "io".RuneScanner interface { ReadRune() (rune int, size int, err "os".Error); UnreadRune() "os".Error }
+	type "big".Int struct { neg bool; abs "big".nat }
+	func (z *"big".Int) Abs (x *"big".Int) *"big".Int
+	func (z *"big".Int) Add (x *"big".Int, y *"big".Int) *"big".Int
+	func (z *"big".Int) And (x *"big".Int, y *"big".Int) *"big".Int
+	func (z *"big".Int) AndNot (x *"big".Int, y *"big".Int) *"big".Int
+	func (z *"big".Int) Binomial (n int64, k int64) *"big".Int
+	func (z *"big".Int) Bit (i int) uint
+	func (z *"big".Int) BitLen () int
+	func (z *"big".Int) Bytes () []uint8
+	func (x *"big".Int) Cmp (y *"big".Int) int
+	func (z *"big".Int) Div (x *"big".Int, y *"big".Int) *"big".Int
+	func (z *"big".Int) DivMod (x *"big".Int, y *"big".Int, m *"big".Int) (? *"big".Int, ? *"big".Int)
+	func (z *"big".Int) Exp (x *"big".Int, y *"big".Int, m *"big".Int) *"big".Int
+	func (x *"big".Int) Format (s "fmt".State, ch int)
+	func (z *"big".Int) GobDecode (buf []uint8) "os".Error
+	func (z *"big".Int) GobEncode () (? []uint8, ? "os".Error)
+	func (x *"big".Int) Int64 () int64
+	func (z *"big".Int) Lsh (x *"big".Int, n uint) *"big".Int
+	func (z *"big".Int) Mod (x *"big".Int, y *"big".Int) *"big".Int
+	func (z *"big".Int) ModInverse (g *"big".Int, p *"big".Int) *"big".Int
+	func (z *"big".Int) Mul (x *"big".Int, y *"big".Int) *"big".Int
+	func (z *"big".Int) MulRange (a int64, b int64) *"big".Int
+	func (z *"big".Int) Neg (x *"big".Int) *"big".Int
+	func (z *"big".Int) Not (x *"big".Int) *"big".Int
+	func (z *"big".Int) Or (x *"big".Int, y *"big".Int) *"big".Int
+	func (z *"big".Int) Quo (x *"big".Int, y *"big".Int) *"big".Int
+	func (z *"big".Int) QuoRem (x *"big".Int, y *"big".Int, r *"big".Int) (? *"big".Int, ? *"big".Int)
+	func (z *"big".Int) Rand (rnd *"rand".Rand, n *"big".Int) *"big".Int
+	func (z *"big".Int) Rem (x *"big".Int, y *"big".Int) *"big".Int
+	func (z *"big".Int) Rsh (x *"big".Int, n uint) *"big".Int
+	func (z *"big".Int) Scan (s "fmt".ScanState, ch int) "os".Error
+	func (z *"big".Int) Set (x *"big".Int) *"big".Int
+	func (z *"big".Int) SetBit (x *"big".Int, i int, b uint) *"big".Int
+	func (z *"big".Int) SetBytes (buf []uint8) *"big".Int
+	func (z *"big".Int) SetInt64 (x int64) *"big".Int
+	func (z *"big".Int) SetString (s string, base int) (? *"big".Int, ? bool)
+	func (x *"big".Int) Sign () int
+	func (x *"big".Int) String () string
+	func (z *"big".Int) Sub (x *"big".Int, y *"big".Int) *"big".Int
+	func (z *"big".Int) Xor (x *"big".Int, y *"big".Int) *"big".Int
+	func (z *"big".Int) scan (r "io".RuneScanner, base int) (? *"big".Int, ? int, ? "os".Error)
+	type "big".Word uintptr
+	type "big".nat []"big".Word
+	func (z "big".nat) add (x "big".nat, y "big".nat) "big".nat
+	func (z "big".nat) and (x "big".nat, y "big".nat) "big".nat
+	func (z "big".nat) andNot (x "big".nat, y "big".nat) "big".nat
+	func (z "big".nat) bit (i uint) uint
+	func (x "big".nat) bitLen () int
+	func (z "big".nat) bytes (buf []uint8) int
+	func (z "big".nat) clear ()
+	func (x "big".nat) cmp (y "big".nat) int
+	func (x "big".nat) decimalString () string
+	func (z "big".nat) div (z2 "big".nat, u "big".nat, v "big".nat) (q "big".nat, r "big".nat)
+	func (z "big".nat) divLarge (u "big".nat, uIn "big".nat, v "big".nat) (q "big".nat, r "big".nat)
+	func (z "big".nat) divW (x "big".nat, y "big".Word) (q "big".nat, r "big".Word)
+	func (z "big".nat) expNN (x "big".nat, y "big".nat, m "big".nat) "big".nat
+	func (z "big".nat) make (n int) "big".nat
+	func (x "big".nat) modW (d "big".Word) "big".Word
+	func (z "big".nat) mul (x "big".nat, y "big".nat) "big".nat
+	func (z "big".nat) mulAddWW (x "big".nat, y "big".Word, r "big".Word) "big".nat
+	func (z "big".nat) mulRange (a uint64, b uint64) "big".nat
+	func (z "big".nat) norm () "big".nat
+	func (z "big".nat) or (x "big".nat, y "big".nat) "big".nat
+	func (x "big".nat) powersOfTwoDecompose () (q "big".nat, k int)
+	func (n "big".nat) probablyPrime (reps int) bool
+	func (z "big".nat) random (rand *"rand".Rand, limit "big".nat, n int) "big".nat
+	func (z "big".nat) scan (r "io".RuneScanner, base int) (? "big".nat, ? int, ? "os".Error)
+	func (z "big".nat) set (x "big".nat) "big".nat
+	func (z "big".nat) setBit (x "big".nat, i uint, b uint) "big".nat
+	func (z "big".nat) setBytes (buf []uint8) "big".nat
+	func (z "big".nat) setUint64 (x uint64) "big".nat
+	func (z "big".nat) setWord (x "big".Word) "big".nat
+	func (z "big".nat) shl (x "big".nat, s uint) "big".nat
+	func (z "big".nat) shr (x "big".nat, s uint) "big".nat
+	func (x "big".nat) string (charset string) string
+	func (z "big".nat) sub (x "big".nat, y "big".nat) "big".nat
+	func (z "big".nat) xor (x "big".nat, y "big".nat) "big".nat
+	type "crypto/x509/pkix".Extension struct { Id "asn1".ObjectIdentifier; Critical bool :"asn1:\"optional\""; Value []uint8 }
+	type "asn1".BitString struct { Bytes []uint8; BitLength int }
+	func (b "asn1".BitString) At (i int) int
+	func (b "asn1".BitString) RightAlign () []uint8
+	type "crypto/x509".SignatureAlgorithm int
+	import rsa "crypto/rsa" // indirect
+	type "crypto/rsa".PrivateKey struct { ? "crypto/rsa".PublicKey; D *"big".Int; Primes []*"big".Int; Precomputed "crypto/rsa".PrecomputedValues }
+	func (priv *"crypto/rsa".PrivateKey) Precompute ()
+	func (priv *"crypto/rsa".PrivateKey) Validate () "os".Error
+	type "crypto/rsa".PublicKey struct { N *"big".Int; E int }
+	type "crypto/rsa".PrecomputedValues struct { Dp *"big".Int; Dq *"big".Int; Qinv *"big".Int; CRTValues []"crypto/rsa".CRTValue }
+	type "crypto/rsa".CRTValue struct { Exp *"big".Int; Coeff *"big".Int; R *"big".Int }
+	type "crypto/x509".VerifyOptions struct { DNSName string; Intermediates *"crypto/x509".CertPool; Roots *"crypto/x509".CertPool; CurrentTime int64 }
+	type "crypto/x509".CertPool struct { bySubjectKeyId map[string] []int; byName map[string] []int; certs []*"crypto/x509".Certificate }
+	func (s *"crypto/x509".CertPool) AddCert (cert *"crypto/x509".Certificate)
+	func (s *"crypto/x509".CertPool) AppendCertsFromPEM (pemCerts []uint8) bool
+	func (s *"crypto/x509".CertPool) findVerifiedParents (cert *"crypto/x509".Certificate) []int
+	type "crypto/x509".Certificate struct { Raw []uint8; RawTBSCertificate []uint8; RawSubjectPublicKeyInfo []uint8; Signature []uint8; SignatureAlgorithm "crypto/x509".SignatureAlgorithm; PublicKeyAlgorithm "crypto/x509".PublicKeyAlgorithm; PublicKey interface { }; Version int; SerialNumber *"big".Int; Issuer "crypto/x509/pkix".Name; Subject "crypto/x509/pkix".Name; NotBefore *"time".Time; NotAfter *"time".Time; KeyUsage "crypto/x509".KeyUsage; ExtKeyUsage []"crypto/x509".ExtKeyUsage; UnknownExtKeyUsage []"asn1".ObjectIdentifier; BasicConstraintsValid bool; IsCA bool; MaxPathLen int; SubjectKeyId []uint8; AuthorityKeyId []uint8; DNSNames []string; EmailAddresses []string; PermittedDNSDomainsCritical bool; PermittedDNSDomains []string; PolicyIdentifiers []"asn1".ObjectIdentifier }
+	func (c *"crypto/x509".Certificate) CheckCRLSignature (crl *"crypto/x509/pkix".CertificateList) "os".Error
+	func (c *"crypto/x509".Certificate) CheckSignature (algo "crypto/x509".SignatureAlgorithm, signed []uint8, signature []uint8) "os".Error
+	func (c *"crypto/x509".Certificate) CheckSignatureFrom (parent *"crypto/x509".Certificate) "os".Error
+	func (c *"crypto/x509".Certificate) CreateCRL (rand "io".Reader, priv *"crypto/rsa".PrivateKey, revokedCerts []"crypto/x509/pkix".RevokedCertificate, now *"time".Time, expiry *"time".Time) (crlBytes []uint8, err "os".Error)
+	func (c *"crypto/x509".Certificate) Equal (other *"crypto/x509".Certificate) bool
+	func (c *"crypto/x509".Certificate) Verify (opts "crypto/x509".VerifyOptions) (chains [][]*"crypto/x509".Certificate, err "os".Error)
+	func (c *"crypto/x509".Certificate) VerifyHostname (h string) "os".Error
+	func (c *"crypto/x509".Certificate) buildChains (cache map[int] [][]*"crypto/x509".Certificate, currentChain []*"crypto/x509".Certificate, opts *"crypto/x509".VerifyOptions) (chains [][]*"crypto/x509".Certificate, err "os".Error)
+	func (c *"crypto/x509".Certificate) isValid (certType int, opts *"crypto/x509".VerifyOptions) "os".Error
+	type "crypto/x509".PublicKeyAlgorithm int
+	type "crypto/x509/pkix".Name struct { Country []string; Organization []string; OrganizationalUnit []string; Locality []string; Province []string; StreetAddress []string; PostalCode []string; SerialNumber string; CommonName string }
+	func (n *"crypto/x509/pkix".Name) FillFromRDNSequence (rdns *"crypto/x509/pkix".RDNSequence)
+	func (n "crypto/x509/pkix".Name) ToRDNSequence () "crypto/x509/pkix".RDNSequence
+	type "crypto/x509".KeyUsage int
+	type "crypto/x509".ExtKeyUsage int
+	func "".viewHandler (w "http".ResponseWriter, r *"http".Request, title string)
+	func "".editHandler (w "http".ResponseWriter, r *"http".Request, title string)
+	func "".saveHandler (w "http".ResponseWriter, r *"http".Request, title string)
+	type "template".FuncMap map[string] interface { }
+	type "template".Set struct { tmpl map[string] *"template".Template; parseFuncs "template".FuncMap; execFuncs map[string] "reflect".Value }
+	func (s *"template".Set) Add (templates ...*"template".Template) *"template".Set
+	func (s *"template".Set) Execute (wr "io".Writer, name string, data interface { }) "os".Error
+	func (s *"template".Set) FuncMap () "template".FuncMap
+	func (s *"template".Set) Funcs (funcMap "template".FuncMap) *"template".Set
+	func (s *"template".Set) Parse (text string) (? *"template".Set, ? "os".Error)
+	func (s *"template".Set) ParseFiles (filenames ...string) (? *"template".Set, ? "os".Error)
+	func (s *"template".Set) ParseGlob (pattern string) (? *"template".Set, ? "os".Error)
+	func (s *"template".Set) ParseTemplateFiles (filenames ...string) (? *"template".Set, ? "os".Error)
+	func (s *"template".Set) ParseTemplateGlob (pattern string) (? *"template".Set, ? "os".Error)
+	func (s *"template".Set) Template (name string) *"template".Template
+	func (s *"template".Set) add (t *"template".Template) "os".Error
+	func (s *"template".Set) init ()
+	import reflect "reflect" // indirect
+	type "reflect".Kind uint8
+	func (k "reflect".Kind) String () string
+	type "reflect".Type interface { Align() int; AssignableTo(u "reflect".Type) bool; Bits() int; ChanDir() "reflect".ChanDir; Elem() "reflect".Type; Field(i int) "reflect".StructField; FieldAlign() int; FieldByIndex(index []int) "reflect".StructField; FieldByName(name string) (? "reflect".StructField, ? bool); FieldByNameFunc(match func(? string) bool) (? "reflect".StructField, ? bool); Implements(u "reflect".Type) bool; In(i int) "reflect".Type; IsVariadic() bool; Key() "reflect".Type; Kind() "reflect".Kind; Len() int; Method(? int) "reflect".Method; MethodByName(? string) (? "reflect".Method, ? bool); Name() string; NumField() int; NumIn() int; NumMethod() int; NumOut() int; Out(i int) "reflect".Type; PkgPath() string; Size() uintptr; String() string; "reflect".common() *"reflect".commonType; "reflect".runtimeType() *"runtime".Type; "reflect".uncommon() *"reflect".uncommonType }
+	type "reflect".ChanDir int
+	func (d "reflect".ChanDir) String () string
+	type "reflect".StructField struct { PkgPath string; Name string; Type "reflect".Type; Tag "reflect".StructTag; Offset uintptr; Index []int; Anonymous bool }
+	type "reflect".StructTag string
+	func (tag "reflect".StructTag) Get (key string) string
+	type "reflect".Method struct { PkgPath string; Name string; Type "reflect".Type; Func "reflect".Value; Index int }
+	type "runtime".Type interface { }
+	type "reflect".commonType struct { size uintptr; hash uint32; alg uint8; align uint8; fieldAlign uint8; kind uint8; string *string; ? *"reflect".uncommonType; ptrToThis *"runtime".Type }
+	func (t *"reflect".commonType) Align () int
+	func (t *"reflect".commonType) AssignableTo (u "reflect".Type) bool
+	func (t *"reflect".commonType) Bits () int
+	func (t *"reflect".commonType) ChanDir () "reflect".ChanDir
+	func (t *"reflect".commonType) Elem () "reflect".Type
+	func (t *"reflect".commonType) Field (i int) "reflect".StructField
+	func (t *"reflect".commonType) FieldAlign () int
+	func (t *"reflect".commonType) FieldByIndex (index []int) "reflect".StructField
+	func (t *"reflect".commonType) FieldByName (name string) (? "reflect".StructField, ? bool)
+	func (t *"reflect".commonType) FieldByNameFunc (match func(? string) bool) (? "reflect".StructField, ? bool)
+	func (t *"reflect".commonType) Implements (u "reflect".Type) bool
+	func (t *"reflect".commonType) In (i int) "reflect".Type
+	func (t *"reflect".commonType) IsVariadic () bool
+	func (t *"reflect".commonType) Key () "reflect".Type
+	func (t *"reflect".commonType) Kind () "reflect".Kind
+	func (t *"reflect".commonType) Len () int
+	func (t *"reflect".commonType) Method (i int) "reflect".Method
+	func (t *"reflect".commonType) MethodByName (name string) (m "reflect".Method, ok bool)
+	func (t *"reflect".commonType) Name () string
+	func (t *"reflect".commonType) NumField () int
+	func (t *"reflect".commonType) NumIn () int
+	func (t *"reflect".commonType) NumMethod () int
+	func (t *"reflect".commonType) NumOut () int
+	func (t *"reflect".commonType) Out (i int) "reflect".Type
+	func (t *"reflect".commonType) PkgPath () string
+	func (t *"reflect".commonType) Size () uintptr
+	func (t *"reflect".commonType) String () string
+	func (t *"reflect".commonType) common () *"reflect".commonType
+	func (t *"reflect".commonType) runtimeType () *"runtime".Type
+	func (t *"reflect".commonType) toType () "reflect".Type
+	type "reflect".uncommonType struct { name *string; pkgPath *string; methods []"reflect".method }
+	func (t *"reflect".uncommonType) Method (i int) "reflect".Method
+	func (t *"reflect".uncommonType) MethodByName (name string) (m "reflect".Method, ok bool)
+	func (t *"reflect".uncommonType) Name () string
+	func (t *"reflect".uncommonType) NumMethod () int
+	func (t *"reflect".uncommonType) PkgPath () string
+	func (t *"reflect".uncommonType) uncommon () *"reflect".uncommonType
+	type "reflect".method struct { name *string; pkgPath *string; mtyp *"runtime".Type; typ *"runtime".Type; ifn "unsafe".Pointer; tfn "unsafe".Pointer }
+	type "reflect".internalValue struct { typ *"reflect".commonType; kind "reflect".Kind; flag uint32; word "reflect".iword; addr "unsafe".Pointer; rcvr "reflect".iword; method bool; nilmethod bool }
+	func (iv "reflect".internalValue) Elem () "reflect".Value
+	func (iv "reflect".internalValue) IsNil () bool
+	func (iv "reflect".internalValue) call (method string, in []"reflect".Value) []"reflect".Value
+	func (iv "reflect".internalValue) mustBe (want "reflect".Kind)
+	func (iv "reflect".internalValue) mustBeAssignable ()
+	func (iv "reflect".internalValue) mustBeExported ()
+	func (iv "reflect".internalValue) recv (nb bool) (val "reflect".Value, ok bool)
+	func (iv "reflect".internalValue) send (x "reflect".Value, nb bool) bool
+	func (iv "reflect".internalValue) valueInterface (safe bool) interface { }
+	type "reflect".iword uintptr
+	type "reflect".Value struct { Internal interface { }; InternalMethod int }
+	func (v "reflect".Value) Addr () "reflect".Value
+	func (v "reflect".Value) Bool () bool
+	func (v "reflect".Value) Call (in []"reflect".Value) []"reflect".Value
+	func (v "reflect".Value) CallSlice (in []"reflect".Value) []"reflect".Value
+	func (v "reflect".Value) CanAddr () bool
+	func (v "reflect".Value) CanInterface () bool
+	func (v "reflect".Value) CanSet () bool
+	func (v "reflect".Value) Cap () int
+	func (v "reflect".Value) Close ()
+	func (v "reflect".Value) Complex () complex128
+	func (v "reflect".Value) Elem () "reflect".Value
+	func (v "reflect".Value) Field (i int) "reflect".Value
+	func (v "reflect".Value) FieldByIndex (index []int) "reflect".Value
+	func (v "reflect".Value) FieldByName (name string) "reflect".Value
+	func (v "reflect".Value) FieldByNameFunc (match func(? string) bool) "reflect".Value
+	func (v "reflect".Value) Float () float64
+	func (v "reflect".Value) Index (i int) "reflect".Value
+	func (v "reflect".Value) Int () int64
+	func (v "reflect".Value) Interface () interface { }
+	func (v "reflect".Value) InterfaceData () [2]uintptr
+	func (v "reflect".Value) IsNil () bool
+	func (v "reflect".Value) IsValid () bool
+	func (v "reflect".Value) Kind () "reflect".Kind
+	func (v "reflect".Value) Len () int
+	func (v "reflect".Value) MapIndex (key "reflect".Value) "reflect".Value
+	func (v "reflect".Value) MapKeys () []"reflect".Value
+	func (v "reflect".Value) Method (i int) "reflect".Value
+	func (v "reflect".Value) MethodByName (name string) "reflect".Value
+	func (v "reflect".Value) NumField () int
+	func (v "reflect".Value) NumMethod () int
+	func (v "reflect".Value) OverflowComplex (x complex128) bool
+	func (v "reflect".Value) OverflowFloat (x float64) bool
+	func (v "reflect".Value) OverflowInt (x int64) bool
+	func (v "reflect".Value) OverflowUint (x uint64) bool
+	func (v "reflect".Value) Pointer () uintptr
+	func (v "reflect".Value) Recv () (x "reflect".Value, ok bool)
+	func (v "reflect".Value) Send (x "reflect".Value)
+	func (v "reflect".Value) Set (x "reflect".Value)
+	func (v "reflect".Value) SetBool (x bool)
+	func (v "reflect".Value) SetComplex (x complex128)
+	func (v "reflect".Value) SetFloat (x float64)
+	func (v "reflect".Value) SetInt (x int64)
+	func (v "reflect".Value) SetLen (n int)
+	func (v "reflect".Value) SetMapIndex (key "reflect".Value, val "reflect".Value)
+	func (v "reflect".Value) SetPointer (x "unsafe".Pointer)
+	func (v "reflect".Value) SetString (x string)
+	func (v "reflect".Value) SetUint (x uint64)
+	func (v "reflect".Value) Slice (beg int, end int) "reflect".Value
+	func (v "reflect".Value) String () string
+	func (v "reflect".Value) TryRecv () (x "reflect".Value, ok bool)
+	func (v "reflect".Value) TrySend (x "reflect".Value) bool
+	func (v "reflect".Value) Type () "reflect".Type
+	func (v "reflect".Value) Uint () uint64
+	func (v "reflect".Value) UnsafeAddr () uintptr
+	func (v "reflect".Value) internal () "reflect".internalValue
+	type "template".Template struct { name string; ? *"template/parse".Tree; parseFuncs "template".FuncMap; execFuncs map[string] "reflect".Value; set *"template".Set }
+	func (t *"template".Template) Execute (wr "io".Writer, data interface { }) "os".Error
+	func (t *"template".Template) Funcs (funcMap "template".FuncMap) *"template".Template
+	func (t *"template".Template) Name () string
+	func (t *"template".Template) Parse (s string) (tmpl *"template".Template, err "os".Error)
+	func (t *"template".Template) ParseFile (filename string) (? *"template".Template, ? "os".Error)
+	func (t *"template".Template) ParseInSet (s string, set *"template".Set) (tmpl *"template".Template, err "os".Error)
+	func (t *"template".Template) addToSet (set *"template".Set)
+	func (t *"template".Template) parseFileInSet (filename string, set *"template".Set) (? *"template".Template, ? "os".Error)
+	import parse "template/parse" // indirect
+	type "template/parse".Node interface { String() string; Type() "template/parse".NodeType }
+	type "template/parse".NodeType int
+	func (t "template/parse".NodeType) Type () "template/parse".NodeType
+	type "template/parse".item struct { typ "template/parse".itemType; val string }
+	func (i "template/parse".item) String () string
+	type "template/parse".itemType int
+	func (i "template/parse".itemType) String () string
+	type "template/parse".CommandNode struct { ? "template/parse".NodeType; Args []"template/parse".Node }
+	func (c *"template/parse".CommandNode) String () string
+	func (c *"template/parse".CommandNode) append (arg "template/parse".Node)
+	type "template/parse".ListNode struct { ? "template/parse".NodeType; Nodes []"template/parse".Node }
+	func (l *"template/parse".ListNode) String () string
+	func (l *"template/parse".ListNode) append (n "template/parse".Node)
+	type "template/parse".PipeNode struct { ? "template/parse".NodeType; Line int; Decl []*"template/parse".VariableNode; Cmds []*"template/parse".CommandNode }
+	func (p *"template/parse".PipeNode) String () string
+	func (p *"template/parse".PipeNode) append (command *"template/parse".CommandNode)
+	type "template/parse".VariableNode struct { ? "template/parse".NodeType; Ident []string }
+	func (v *"template/parse".VariableNode) String () string
+	type "template/parse".stateFn func(? *"template/parse".lexer) "template/parse".stateFn
+	type "template/parse".lexer struct { name string; input string; state "template/parse".stateFn; pos int; start int; width int; items chan "template/parse".item }
+	func (l *"template/parse".lexer) accept (valid string) bool
+	func (l *"template/parse".lexer) acceptRun (valid string)
+	func (l *"template/parse".lexer) backup ()
+	func (l *"template/parse".lexer) emit (t "template/parse".itemType)
+	func (l *"template/parse".lexer) errorf (format string, args ...interface { }) "template/parse".stateFn
+	func (l *"template/parse".lexer) ignore ()
+	func (l *"template/parse".lexer) lineNumber () int
+	func (l *"template/parse".lexer) next () int
+	func (l *"template/parse".lexer) nextItem () "template/parse".item
+	func (l *"template/parse".lexer) peek () int
+	func (l *"template/parse".lexer) scanNumber () bool
+	type "template/parse".Tree struct { Name string; Root *"template/parse".ListNode; funcs []map[string] interface { }; lex *"template/parse".lexer; token [2]"template/parse".item; peekCount int; vars []string }
+	func (t *"template/parse".Tree) Parse (s string, funcs ...map[string] interface { }) (tree *"template/parse".Tree, err "os".Error)
+	func (t *"template/parse".Tree) action () "template/parse".Node
+	func (t *"template/parse".Tree) atEOF () bool
+	func (t *"template/parse".Tree) backup ()
+	func (t *"template/parse".Tree) backup2 (t1 "template/parse".item)
+	func (t *"template/parse".Tree) command () *"template/parse".CommandNode
+	func (t *"template/parse".Tree) elseControl () "template/parse".Node
+	func (t *"template/parse".Tree) endControl () "template/parse".Node
+	func (t *"template/parse".Tree) error (err "os".Error)
+	func (t *"template/parse".Tree) errorf (format string, args ...interface { })
+	func (t *"template/parse".Tree) expect (expected "template/parse".itemType, context string) "template/parse".item
+	func (t *"template/parse".Tree) hasFunction (name string) bool
+	func (t *"template/parse".Tree) ifControl () "template/parse".Node
+	func (t *"template/parse".Tree) itemList (toEOF bool) (list *"template/parse".ListNode, next "template/parse".Node)
+	func (t *"template/parse".Tree) next () "template/parse".item
+	func (t *"template/parse".Tree) parse (toEOF bool) "template/parse".Node
+	func (t *"template/parse".Tree) parseControl (context string) (lineNum int, pipe *"template/parse".PipeNode, list *"template/parse".ListNode, elseList *"template/parse".ListNode)
+	func (t *"template/parse".Tree) peek () "template/parse".item
+	func (t *"template/parse".Tree) pipeline (context string) *"template/parse".PipeNode
+	func (t *"template/parse".Tree) popVars (n int)
+	func (t *"template/parse".Tree) rangeControl () "template/parse".Node
+	func (t *"template/parse".Tree) recover (errp *"os".Error)
+	func (t *"template/parse".Tree) startParse (funcs []map[string] interface { }, lex *"template/parse".lexer)
+	func (t *"template/parse".Tree) stopParse ()
+	func (t *"template/parse".Tree) templateControl () "template/parse".Node
+	func (t *"template/parse".Tree) textOrAction () "template/parse".Node
+	func (t *"template/parse".Tree) unexpected (token "template/parse".item, context string)
+	func (t *"template/parse".Tree) useVar (name string) "template/parse".Node
+	func (t *"template/parse".Tree) withControl () "template/parse".Node
+	var "".templates map[string] *"template".Template
+	func "".initÂ·1 ()
+	func "".renderTemplate (w "http".ResponseWriter, tmpl string, p *"".Page)
+	const "".lenPath int = 6
+	type "io".RuneReader interface { ReadRune() (rune int, size int, err "os".Error) }
+	type "regexp".instr struct { kind int; index int; next *"regexp".instr; char int; braNum int; cclass *"regexp".charClass; left *"regexp".instr }
+	func (i *"regexp".instr) print ()
+	type "regexp".charClass struct { negate bool; ranges []int; cmin int; cmax int }
+	func (cclass *"regexp".charClass) addRange (a int, b int)
+	func (cclass *"regexp".charClass) matches (c int) bool
+	func (cclass *"regexp".charClass) print ()
+	type "regexp".input interface { "regexp".canCheckPrefix() bool; "regexp".hasPrefix(re *"regexp".Regexp) bool; "regexp".index(re *"regexp".Regexp, pos int) int; "regexp".step(pos int) (rune int, width int) }
+	type "regexp".Regexp struct { expr string; prefix string; prefixBytes []uint8; inst []*"regexp".instr; start *"regexp".instr; prefixStart *"regexp".instr; nbra int }
+	func (re *"regexp".Regexp) Find (b []uint8) []uint8
+	func (re *"regexp".Regexp) FindAll (b []uint8, n int) [][]uint8
+	func (re *"regexp".Regexp) FindAllIndex (b []uint8, n int) [][]int
+	func (re *"regexp".Regexp) FindAllString (s string, n int) []string
+	func (re *"regexp".Regexp) FindAllStringIndex (s string, n int) [][]int
+	func (re *"regexp".Regexp) FindAllStringSubmatch (s string, n int) [][]string
+	func (re *"regexp".Regexp) FindAllStringSubmatchIndex (s string, n int) [][]int
+	func (re *"regexp".Regexp) FindAllSubmatch (b []uint8, n int) [][][]uint8
+	func (re *"regexp".Regexp) FindAllSubmatchIndex (b []uint8, n int) [][]int
+	func (re *"regexp".Regexp) FindIndex (b []uint8) []int
+	func (re *"regexp".Regexp) FindReaderIndex (r "io".RuneReader) []int
+	func (re *"regexp".Regexp) FindReaderSubmatchIndex (r "io".RuneReader) []int
+	func (re *"regexp".Regexp) FindString (s string) string
+	func (re *"regexp".Regexp) FindStringIndex (s string) []int
+	func (re *"regexp".Regexp) FindStringSubmatch (s string) []string
+	func (re *"regexp".Regexp) FindStringSubmatchIndex (s string) []int
+	func (re *"regexp".Regexp) FindSubmatch (b []uint8) [][]uint8
+	func (re *"regexp".Regexp) FindSubmatchIndex (b []uint8) []int
+	func (re *"regexp".Regexp) LiteralPrefix () (prefix string, complete bool)
+	func (re *"regexp".Regexp) Match (b []uint8) bool
+	func (re *"regexp".Regexp) MatchReader (r "io".RuneReader) bool
+	func (re *"regexp".Regexp) MatchString (s string) bool
+	func (re *"regexp".Regexp) NumSubexp () int
+	func (re *"regexp".Regexp) ReplaceAll (src []uint8, repl []uint8) []uint8
+	func (re *"regexp".Regexp) ReplaceAllFunc (src []uint8, repl func(? []uint8) []uint8) []uint8
+	func (re *"regexp".Regexp) ReplaceAllString (src string, repl string) string
+	func (re *"regexp".Regexp) ReplaceAllStringFunc (src string, repl func(? string) string) string
+	func (re *"regexp".Regexp) String () string
+	func (re *"regexp".Regexp) add (i *"regexp".instr) *"regexp".instr
+	func (re *"regexp".Regexp) allMatches (s string, b []uint8, n int, deliver func(? []int))
+	func (re *"regexp".Regexp) doExecute (i "regexp".input, pos int) []int
+	func (re *"regexp".Regexp) doParse ()
+	func (re *"regexp".Regexp) dump ()
+	func (re *"regexp".Regexp) eliminateNops ()
+	func (re *"regexp".Regexp) setPrefix ()
+	var "".titleValidator *"regexp".Regexp
+	type "http".HandlerFunc func(? "http".ResponseWriter, ? *"http".Request)
+	func (f "http".HandlerFunc) ServeHTTP (w "http".ResponseWriter, r *"http".Request)
+	func "".makeHandler (fn func(? "http".ResponseWriter, ? *"http".Request, ? string)) "http".HandlerFunc
+	func "".main ()
+	var "".initdoneÂ· uint8
+	func "".init ()
+
+$$  // local types
+
+$$
+
+!
+~ E</ ~ E<home ~ E<saber ~ E<workspace ~ E<project ~ E<gowiki ~ E<wiki.go 7      ~ E<http.a 7     ÿÿÿÿA~ E<io ~ E<ioutil.a 7     ÿÿÿÿA~ E<os.a 7     ÿÿÿÿA~ E<template.a 7     ÿÿÿÿA~ E<regexp.a 7     ÿÿÿÿA7 \     ~ ="".(*Page).save ~ =type.method(p *"".Page)func() os.Error Ý    ‘=E(      Ap       AS~ @"".p ~ =type.*"".Page p    ‘@a       S!      y      y      ~ =go.string.".txt" a    =a       S!      y      y      ~ =runtime.concatstring ~ =type.func(int, string, string) string      ‘=a       Sp    ~ ?"".filename ~ =	type.string a    •øÿÿÿ?	!      y      y      a    •øÿÿÿ?	~ S
+io/ioutil.filename a    
+S!      y      y      p    ‘@	       A~ Sio/ioutil.data a       S!      y      y      y      ~ Sio/ioutil.perm p    €  A   S~ =io/ioutil.WriteFile ~ =type.func(string, []uint8, uint32) os.Error      ‘=a       Sp    p    ~ @""..noname a       @!      y      y      ¤      ~ =runtime.throwreturn      =¤      ~ ="".loadPage ~ =type.func(string) (*"".Page, os.Error) Ý    ‘=E8      Ap       AS~ @"".title a    ‘@	a       S!      y      y      a    =a       S!      y      y           ‘=a       Sp    a    •äÿÿÿ?	!      y      y      a    •äÿÿÿ?	a    
+S!      y      y      ~ =io/ioutil.ReadFile ~ =type.func(string) ([]uint8, os.Error)      ‘=a       S~ ?"".body ~ =type.[]uint8 a    •ìÿÿÿ?!      y      y      y      a       S~ ?"".err ~ =type.os.Error a    •øÿÿÿ?!      y      y      W     Q   <W     \   <a    •øÿÿÿ?&    RAO     P   <p    A   @a    •øÿÿÿ?a       @!      y      y      ¤      W     \   <p       AS~ =runtime.new ~ =type.func(int32) *"".Page      ‘=p       Sa    ‘@	p    !      y      y      p    	       Aa    •ìÿÿÿ?!      y      y      y      p       @p    Aa       @Ô      Ô      ¤           =¤      ~ ="".viewHandler ~ =type.func(http.ResponseWriter, *http.Request, string) Ý    ‘=E$      Aa    •   @	~ S"".title a    S!      y      y           ‘=p       Sa       Sa    •øÿÿÿ?!      y      y      W     ‚   <W     ¢   <a    •øÿÿÿ?&    RAO        <p       AS~ =go.string."/edit/" a    =a       S!      y      y      ~ @ "".title a    •    @	a       S!      y      y           ‘=a       Sp    ~ S!http.urlStr a       !S!      y      y      ~ @""".w ~ =#type.http.ResponseWriter a    ‘"@#~ S$http.w a    $S!      y      y      ~ @%"".r ~ =&type.*http.Request p    •   %@&~ S'http.r p       'S~ S(http.code p    .  A   (S~ =)http.Redirect ~ =*type.func(http.ResponseWriter, *http.Request, string, int)      ‘)=*¤       W     ¢   <a "   ‘"@#~ S+"".w a "   +S! "     y "     y "     ~ =,go.string."view" a "   ,=~ S-"".tmpl a "      -S! "     y "     y "     ~ S."".p p "      .S~ =/"".renderTemplate ~ =0type.func(http.ResponseWriter, string, *"".Page)  "    ‘/=0¤ #     ~ =1"".editHandler Ý %   ‘1=E      Aa &   •    @	~ S"".title a &   S! &     y &     y &      &    ‘=p &      Sa &      Sa &   •øÿÿÿ?! &     y &     y &     W '    ¾   <W '    Ð   <a '   •øÿÿÿ?& '   RAO '    ½   <p (      AS (    ‘=p (      S
+p (   Ap (   
+p (      A	¢ (     Ô (     ~ @"".title a (   •   @	p (   
+! (     y (     y (     p (   
+W '    Ð   <~ @"".w a *   ‘@#~ S"".w a *   S! *     y *     y *     ~ =go.string."edit" a *   =a *      -S! *     y *     y *     p *      .S *    ‘/=0¤ +     ~ ="".saveHandler Ý -   ‘=E0      Ap .   •   %@&p .   'S~ =go.string."body" a .   =~ Shttp.key a .      S! .     y .     y .     ~ =	http.(*Request).FormValue  .    	=a .      Sp .   ~ =
+type.string a .   •ôÿÿÿ?
+! .     y .     y .     p /      AS /    ‘=p /      S~ ?"".autotmp_0058 p /   üÿÿÿ?a /   •   @
+! /     y /     y /     a /   •ôÿÿÿ?
+a /   S! /     y /     y /     ~ =runtime.stringtoslicebyte ~ =type.func(string) []uint8  /    ‘=p /   üÿÿÿ?
+a /      Sp /   p /   
+	 /      A! /     y /     y /     y /     p 0   
+.S~ ="".(*Page).save  0    =a 0      Sp 0   a 0   •ìÿÿÿ?! 0     y 0     y 0     W 1      <W 1    *  <a 1   •ìÿÿÿ?& 1   RAO 1      <a 2   •ìÿÿÿ?p 2      Rp 2   Sp 2   Rp 2      R 2    a 2      Sp 2   p 2   ~ Shttp.error a 2      SÑ 2     	 2      A	 2      Ap 2      A	¢ 2     y 2     ! 2     ~ @"".w a 2   ‘@#a 2   $S! 2     y 2     y 2     p 2   ô  A   (S~ =http.Error ~ =type.func(http.ResponseWriter, string, int)  2    ‘=¤ 3     W 1    *  <p 5      AS~ =go.string."/view/" a 5   =a 5      S! 5     y 5     y 5     a 5   •   @
+a 5      S! 5     y 5     y 5     ~ =runtime.concatstring ~ =type.func(int, string, string) string  5    ‘=a 5      Sp 5   a 5      !S! 5     y 5     y 5     a 5   ‘@#a 5   $S! 5     y 5     y 5     p 5   •   %@&p 5      'Sp 5   .  A   (S 5    ‘)=*¤ 6     ~ ="".initÂ·1 ~ =type.func() Ý 9   ‘=D   A~ ="".statictmp_0087 - :   ;==    D- :   ;   =   A- :   ;   ==    ,D- :   ;   =   Ap :      AS~ =type.func(int32) *[2]string  :    ‘=p :      S
+a :   =p :   
+! :     p :      A	¢ :     y :     ~ ?"".autotmp_0083 p :      AÜÿÿÿ?p :      Aàÿÿÿ?p :   
+Øÿÿÿ?p :   A
+p :   Üÿÿÿ?~ ?"".autotmp_0085 p :   ìÿÿÿ?a :   Øÿÿÿ?p :   RW :    [  <W :    •  <C :    
+p :   ìÿÿÿ?& :   
+P :    Y  <~ ?"".autotmp_0084 p :   
+ðÿÿÿ?p :   ~ ?"".tmpl a :   •äÿÿÿ?
+! :     y :     y :     p :   	 :      A~ ?"".autotmp_0086 p :   ôÿÿÿ?p ;      ASa ;   •äÿÿÿ?
+a ;      S! ;     y ;     y ;     ~ =go.string.".html" a ;   =a ;      S! ;     y ;     y ;      ;    ‘=a ;      Sp ;   ~ S template.filename a ;    S! ;     y ;     y ;     ~ =!template.ParseFile ~ ="type.func(string) (*template.Template, os.Error)  ;    ‘!="p ;      Sa ;      S~ ?#"".autotmp_0090 a ;   øÿÿÿ#?! ;     y ;     y ;     ~ S$template.t p ;   $Sa ;   øÿÿÿ#?~ S%template.err a ;      %S! ;     y ;     y ;     ~ =&template.Must ~ ='type.func(*template.Template, os.Error) *template.Template  ;    ‘&='p ;      S~ =(type.map[string] *template.Template ~ =)type.uint8 ~ S*runtime.mapType p <   “= (D)*S~ =+"".templates p <   ‘+=(~ S,runtime.hmap p <      ,Sa <   •äÿÿÿ?
+~ S-runtime.key a <      -S! <     y <     y <     ~ S.runtime.val p <      .S~ =/runtime.mapassign1 ~ =0type.func(*uint8, map[string] *template.Template, string, *template.Template)  <    ‘/=0p <   ôÿÿÿ?p <   ðÿÿÿ?
+W :    Z  <¤ >     ~ =1"".renderTemplate ~ =type.func(http.ResponseWriter, string, *"".Page) Ý @   ‘1=E0      Ap A   “= (D)*Sp A   ‘+=(p A      ,S~ @"".tmpl a A   •   @
+a A      -S! A     y A     y A     ~ =runtime.mapaccess1 ~ =type.func(*uint8, map[string] *template.Template, string) *template.Template  A    ‘=p A      S~ ?"".autotmp_0111 p A   ôÿÿÿ?~ =type.io.Writer ~ Sruntime.typ p A   “= D)S~ =type.http.ResponseWriter a A   ‘@~ S	runtime.elem a A      	S! A     y A     y A     ~ =
+runtime.convI2I ~ =type.func(*uint8, http.ResponseWriter) io.Writer  A    ‘
+=a A      Sp A   ~ ?"".autotmp_0112 a A   øÿÿÿ?! A     y A     y A     ~ =type.*"".Page p A   “= D)S~ @"".p p A   •   @p A      	S~ =runtime.convT2E ~ =type.func(*uint8, *"".Page) interface { }  A    ‘=a A      Sp A   p A   ~ Stemplate.data a A      SÑ A     	 A      A	 A      Ap A      A	¢ A     y A     ! A     p A   ôÿÿÿ?p A   $Sa A   øÿÿÿ?~ Stemplate.wr a A      S! A     y A     y A     ~ =template.(*Template).Execute  A    =a A      Sp A   p A   ~ ?"".err ~ =type.os.Error a A   •ìÿÿÿ?! A     y A     y A     W B    Ï  <W B    ë  <a B   •ìÿÿÿ?& B   RAO B    Î  <a C   •ìÿÿÿ?p C      Rp C   Sp C   Rp C      R C    a C      Sp C   p C   ~ Shttp.error a C      SÑ C     	 C      A	 C      Ap C      A	¢ C     y C     ! C     ~ @"".w a C   ‘@~ Shttp.w a C   S! C     y C     y C     ~ Shttp.code p C   ô  A   S~ =http.Error ~ =type.func(http.ResponseWriter, string, int)  C    ‘=W B    ë  <¤ E     ~ ="".makeHandler ~ =type.func(func(http.ResponseWriter, *http.Request, string)) http.HandlerFunc Ý J   ‘=E      Ap J      AS~ =runtime.new ~ =type.func(int32) *func(http.ResponseWriter, *http.Request, string)  J    ‘=p J      S~ @ "".fn p J    @p J   Op K      AS~ =!""._func_001 ~ ="type.func(*func(http.ResponseWriter, *http.Request, string), uintptr, http.ResponseWriter, *http.Request) p K   “= !D"p K      Sp K      S~ =#runtime.closure ~ =$type.func(int, func(*func(http.ResponseWriter, *http.Request, string), uintptr, http.ResponseWriter, *http.Request), *func(http.ResponseWriter, *http.Request, string)) func(http.ResponseWriter, *http.Request)  R    ‘#=$p R      S~ @%""..noname p R      %@¤ R     ~ =&runtime.throwreturn  S    &=¤ S     ~ ='"".main ~ =(type.func() Ý U   ‘'=(   A~ =)"".viewHandler ~ =*type.func(http.ResponseWriter, *http.Request, string) p V   “= )D*~ S+"".fn p V   +S V    ‘=p V      S~ S,http.handler p V      ,S~ =-go.string."/view/" a V   -=~ S.http.pattern a V   .S! V     y V     y V     ~ =/http.HandleFunc ~ =0type.func(string, func(http.ResponseWriter, *http.Request))  V    ‘/=0~ =1"".editHandler p W   “= 1D*p W   +S W    ‘=p W      Sp W      ,S~ =go.string."/edit/" a W   =a W   .S! W     y W     y W      W    ‘/=0~ ="".saveHandler p X   “= D*p X   +S X    ‘=p X      Sp X      ,S~ =go.string."/save/" a X   =a X   .S! X     y X     y X      X    ‘/=0~ =go.string.":8080" a Y   =~ Shttp.addr a Y   S! Y     y Y     y Y     p Y   Aa Y      ,SÔ Y     Ô Y     ~ =http.ListenAndServe ~ =type.func(string, http.Handler) os.Error  Y    ‘=¤ Z     ~ ="".init Ý Z   ‘=(   A~ =	"".initdoneÂ· ~ =
+type.uint8 s Z   ‘	=
+	W Z    -  <W Z    8  <% Z   	AO Z    ,  <W Z    1  <W Z    6  <p Z   	% Z   	   AX Z    0  <¤ Z     W Z    6  <~ =runtime.throwinit  Z    ‘=(W Z    8  <o Z      A‘	=
+~ =regexp.init  Z    ‘=(~ =template.init  Z    ‘=(~ =os.init  Z    ‘=(~ =io/ioutil.init  Z    ‘=(~ =http.init  Z    ‘=(~ =type.map[string] *template.Template ~ Sruntime.mapType p 8   “= D
+S~ Sruntime.hint p 8   A   Sp 8   A   S~ =runtime.makemap ~ =type.func(*uint8, int64) map[string] *template.Template  8    ‘=p 8      S~ ="".templates p 8   ‘=~ =go.string."^[a-zA-Z0-9]+$" a H   =~ Sregexp.str a H   S! H     y H     y H     ~ =regexp.MustCompile ~ =type.func(string) *regexp.Regexp  H    ‘=p H      S~ ="".titleValidator ~ =type.*regexp.Regexp p H   ‘=~ ="".initÂ·1  Z    ‘=(o Z      A‘	=
+¤ Z     ¤ Z     Ý K   ‘!="E      A~ @"".r ~ =type.*http.Request p L   •   @	 L      Ap L   O	 L   0   Aa L   S! L     y L     y L     p L      A   S~ = runtime.slicestring1 ~ =!type.func(string, int) string  L    ‘ =!a L      Sp L   ~ ?""".title ~ =#type.string a L   •øÿÿÿ"?#! L     y L     y L     W M    c  <W M    x  <p M   ‘=~ S$regexp.re p M   $Sa M   •øÿÿÿ"?#~ S%regexp.s a M      %S! M     y M     y M     ~ =&regexp.(*Regexp).MatchString  M    &=p M   •   @s M      S% M   AX M    b  <~ @'"".w ~ =(type.http.ResponseWriter a N   •   '@(~ S)http.w a N   )S! N     y N     y N     ~ S*http.r p N      *S~ =+http.NotFound ~ =,type.func(http.ResponseWriter, *http.Request)  N    ‘+=,¤ O     W M    x  <a Q   •   '@(a Q   S! Q     y Q     y Q     p Q      Sa Q   •øÿÿÿ"?#a Q      S! Q     y Q     y Q     ~ @-"".&fn p Q   -@p Q   R Q    ¤ K     5 8   ‘=   A5 H   ‘=   A~ =."".statictmp_0087 5 :   ;.=   A5 Z   ‘	=
+   A~ =/type.[]uint8 ~ =0type.*runtime.SliceType - Z   ;/== 0D- Z   ;   /==    /D- Z   ;   /=   A- Z   ;   /=ß~.8A- Z   ;   /=   A- Z   ;   /=   A- Z   ;   /=   A- Z   ;   /=   A~ =1go.string."[]uint8" - Z   ;   /== 1D~ =weak.type.*[]uint8 - Z   ;   /== D- Z   ;    /== 
+D5 Z   ;
+/=$   A~ =type."".Page ~ =type.*runtime.StructType - Z   ;== D- Z   ;   ==    D- Z   ;   =   A- Z   ;   =H–òõA- Z   ;   =   A- Z   ;   =   A- Z   ;   =   A- Z   ;   =   A~ =go.string."main.Page" - Z   ;   == D~ =type.*"".Page - Z   ;   == D- Z   ;    == ,   D- Z   ;$   =   A- Z   ;(   =   A~ =go.string."Title" - Z   ;,   == D- Z   ;0   =A- Z   ;4   == #D- Z   ;8   =A- Z   ;<   =A~ =go.string."Body" - Z   ;@   == D- Z   ;D   =A- Z   ;H   == /D- Z   ;L   =A- Z   ;P   =   A- Z   ;   == T   D~ =go.string."Page" - Z   ;T   == D~ =	go.importpath."". - Z   ;X   == 	D- Z   ;\   == h   D- Z   ;`   =A- Z   ;d   =A5 Z   ;=h   A~ =
+type.*runtime.PtrType - Z   ;== 
+D- Z   ;   ==    D- Z   ;   =   A- Z   ;   =¦¯»A- Z   ;   =   A- Z   ;   =   A- Z   ;   =   A- Z   ;   =   A~ =go.string."*main.Page" - Z   ;   == D~ =weak.type.**"".Page - Z   ;   == D- Z   ;    == D- Z   ;   == $   D~ =type.func(*"".Page) os.Error ~ =type.*runtime.FuncType - Z   ;== D- Z   ;   ==    D- Z   ;   =   A- Z   ;   =Î|Ú4A- Z   ;   =   A- Z   ;   =   A- Z   ;   =   A- Z   ;   =   A~ =go.string."func(*main.Page) os.Error" - Z   ;   == D~ =weak.type.*func(*"".Page) os.Error - Z   ;   == D- Z   ;    =A- Z   ;$   == <   D- Z   ;(   =   A- Z   ;,   =   A- Z   ;0   == @   D- Z   ;4   =   A- Z   ;8   =   A- Z   ;<   == D~ =type.os.Error - Z   ;@   == D5 Z   ;
+=D   A- Z   ;$   =A- Z   ;(   =A- Z   ;,   == 8   D- Z   ;0   =   A- Z   ;4   =   A~ =go.string."save" - Z   ;8   == D- Z   ;<   == 	D~ =type.func() os.Error - Z   ;== D- Z   ;   ==    D- Z   ;   =   A- Z   ;   =ÿÈìA- Z   ;   =   A- Z   ;   =   A- Z   ;   =   A- Z   ;   =   A~ =go.string."func() os.Error" - Z   ;   == D~ =weak.type.*func() os.Error - Z   ;   == D- Z   ;    =A- Z   ;$   == <   D- Z   ;(   =A- Z   ;,   =A- Z   ;0   == <   D- Z   ;4   =   A- Z   ;8   =   A- Z   ;<   == D5 Z   ;
+=@   A- Z   ;@   == D- Z   ;D   == D~ ="".(*Page).save - Z   ;H   == D- Z   ;L   == D5 Z   ;=P   A~ =type.method(p *"".Page)func() os.Error - Z   ;== D- Z   ;   ==    D- Z   ;   =   A- Z   ;   =ÿÈìA- Z   ;   =   A- Z   ;   =   A- Z   ;   =   A- Z   ;   =   A~ =go.string."method(p *main.Page)func() os.Error" - Z   ;   == D~ =weak.type.*method(p *"".Page)func() os.Error - Z   ;   == D- Z   ;    =A- Z   ;$   == <   D- Z   ;(   =   A- Z   ;,   =   A- Z   ;0   == @   D- Z   ;4   =   A- Z   ;8   =   A- Z   ;<   == D- Z   ;@   == D5 Z   ;
+=D   A~ =type.func(int, string, string) string - Z   ;== D- Z   ;   ==    D- Z   ;   =   A- Z   ;   =`—ÅØA- Z   ;   =   A- Z   ;   =   A- Z   ;   =   A- Z   ;   =   A~ =go.string."func(int, string, string) string" - Z   ;   == D~ =weak.type.*func(int, string, string) string - Z   ;   == D- Z   ;    =A- Z   ;$   == <   D- Z   ;(   =   A- Z   ;,   =   A- Z   ;0   == H   D- Z   ;4   =   A- Z   ;8   =   A~ =type.int - Z   ;<   == D- Z   ;@   == #D- Z   ;D   == #D- Z   ;H   == #D5 Z   ;
+=L   A~ =type.func(string, []uint8, uint32) os.Error - Z   ;== D- Z   ;   ==    D- Z   ;   =   A- Z   ;   =u#éfA- Z   ;   =   A- Z   ;   =   A- Z   ;   =   A- Z   ;   =   A~ =go.string."func(string, []uint8, uint32) os.Error" - Z   ;   == D~ = weak.type.*func(string, []uint8, uint32) os.Error - Z   ;   ==  D- Z   ;    =A- Z   ;$   == <   D- Z   ;(   =   A- Z   ;,   =   A- Z   ;0   == H   D- Z   ;4   =   A- Z   ;8   =   A- Z   ;<   == #D- Z   ;@   == /D~ =!type.uint32 - Z   ;D   == !D- Z   ;H   == D5 Z   ;
+=L   A~ ="type.func(string) (*"".Page, os.Error) - Z   ;"== D- Z   ;   "==    "D- Z   ;   "=   A- Z   ;   "=(
+®A- Z   ;   "=   A- Z   ;   "=   A- Z   ;   "=   A- Z   ;   "=   A~ =#go.string."func(string) (*main.Page, os.Error)" - Z   ;   "== #D~ =$weak.type.*func(string) (*"".Page, os.Error) - Z   ;   "== $D- Z   ;    "=A- Z   ;$   "== <   "D- Z   ;(   "=   A- Z   ;,   "=   A- Z   ;0   "== @   "D- Z   ;4   "=   A- Z   ;8   "=   A~ =%type.string - Z   ;<   "== %D- Z   ;@   "== D- Z   ;D   "== D5 Z   ;
+"=H   A~ =&type.func(string) ([]uint8, os.Error) - Z   ;&== D- Z   ;   &==    &D- Z   ;   &=   A- Z   ;   &=Ã$I•A- Z   ;   &=   A- Z   ;   &=   A- Z   ;   &=   A- Z   ;   &=   A~ ='go.string."func(string) ([]uint8, os.Error)" - Z   ;   &== 'D~ =(weak.type.*func(string) ([]uint8, os.Error) - Z   ;   &== (D- Z   ;    &=A- Z   ;$   &== <   &D- Z   ;(   &=   A- Z   ;,   &=   A- Z   ;0   &== @   &D- Z   ;4   &=   A- Z   ;8   &=   A- Z   ;<   &== %D- Z   ;@   &== /D- Z   ;D   &== D5 Z   ;
+&=H   A~ =)type.func(int32) *"".Page - Z   ;)== D- Z   ;   )==    )D- Z   ;   )=   A- Z   ;   )=¬\›A- Z   ;   )=   A- Z   ;   )=   A- Z   ;   )=   A- Z   ;   )=   A~ =*go.string."func(int32) *main.Page" - Z   ;   )== *D~ =+weak.type.*func(int32) *"".Page - Z   ;   )== +D- Z   ;    )=A- Z   ;$   )== <   )D- Z   ;(   )=   A- Z   ;,   )=   A- Z   ;0   )== @   )D- Z   ;4   )=   A- Z   ;8   )=   A~ =,type.int32 - Z   ;<   )== ,D- Z   ;@   )== D5 Z   ;
+)=D   A~ =-type.func(http.ResponseWriter, *http.Request, string) - Z   ;-== D- Z   ;   -==    -D- Z   ;   -=   A- Z   ;   -= o_A- Z   ;   -=   A- Z   ;   -=   A- Z   ;   -=   A- Z   ;   -=   A~ =.go.string."func(http.ResponseWriter, *http.Request, string)" - Z   ;   -== .D~ =/weak.type.*func(http.ResponseWriter, *http.Request, string) - Z   ;   -== /D- Z   ;    -=A- Z   ;$   -== <   -D- Z   ;(   -=   A- Z   ;,   -=   A- Z   ;0   -== H   -D- Z   ;4   -=A- Z   ;8   -=A~ =0type.http.ResponseWriter - Z   ;<   -== 0D~ =1type.*http.Request - Z   ;@   -== 1D- Z   ;D   -== %D5 Z   ;
+-=H   A~ =type.func(http.ResponseWriter, *http.Request, string, int) - Z   ;== D- Z   ;   ==    D- Z   ;   =   A- Z   ;   =E¶æA- Z   ;   =   A- Z   ;   =   A- Z   ;   =   A- Z   ;   =   A~ =go.string."func(http.ResponseWriter, *http.Request, string, int)" - Z   ;   == D~ =weak.type.*func(http.ResponseWriter, *http.Request, string, int) - Z   ;   == D- Z   ;    =A- Z   ;$   == <   D- Z   ;(   =   A- Z   ;,   =   A- Z   ;0   == L   D- Z   ;4   =A- Z   ;8   =A- Z   ;<   == 0D- Z   ;@   == 1D- Z   ;D   == %D- Z   ;H   == D5 Z   ;
+=L   A~ =type.func(http.ResponseWriter, string, *"".Page) - Z   ;== D- Z   ;   ==    D- Z   ;   =   A- Z   ;   =“¢WƒA- Z   ;   =   A- Z   ;   =   A- Z   ;   =   A- Z   ;   =   A~ =go.string."func(http.ResponseWriter, string, *main.Page)" - Z   ;   == D~ =weak.type.*func(http.ResponseWriter, string, *"".Page) - Z   ;   == D- Z   ;    =A- Z   ;$   == <   D- Z   ;(   =   A- Z   ;,   =   A- Z   ;0   == H   D- Z   ;4   =A- Z   ;8   =A- Z   ;<   == 0D- Z   ;@   == %D~ =type.*"".Page - Z   ;D   == D5 Z   ;
+=H   A~ =type.func(string) []uint8 - Z   ;== D- Z   ;   ==    D- Z   ;   =   A- Z   ;   =EÁ'ôA- Z   ;   =   A- Z   ;   =   A- Z   ;   =   A- Z   ;   =   A~ =	go.string."func(string) []uint8" - Z   ;   == 	D~ =
+weak.type.*func(string) []uint8 - Z   ;   == 
+D- Z   ;    =A- Z   ;$   == <   D- Z   ;(   =   A- Z   ;,   =   A- Z   ;0   == @   D- Z   ;4   =   A- Z   ;8   =   A- Z   ;<   == %D~ =type.[]uint8 - Z   ;@   == D5 Z   ;
+=D   A~ =type.func(http.ResponseWriter, string, int) - Z   ;== D- Z   ;   ==    D- Z   ;   =   A- Z   ;   = €ªA- Z   ;   =   A- Z   ;   =   A- Z   ;   =   A- Z   ;   =   A~ =go.string."func(http.ResponseWriter, string, int)" - Z   ;   == D~ =weak.type.*func(http.ResponseWriter, string, int) - Z   ;   == D- Z   ;    =A- Z   ;$   == <   D- Z   ;(   =   A- Z   ;,   =   A- Z   ;0   == H   D- Z   ;4   =A- Z   ;8   =A- Z   ;<   == 0D- Z   ;@   == %D- Z   ;D   == D5 Z   ;
+=H   A~ =type.map[string] *template.Template ~ =type.*runtime.MapType - Z   ;== D- Z   ;   ==    D- Z   ;   =   A- Z   ;   =XžÈ©A- Z   ;   =   A- Z   ;   =   A- Z   ;   =   A- Z   ;   =   A~ =go.string."map[string] *template.Template" - Z   ;   == D~ =weak.type.*map[string] *template.Template - Z   ;   == D- Z   ;    == %D~ =type.*template.Template - Z   ;$   == D5 Z   ;
+=(   A~ =type.func() ~ =type.*runtime.FuncType - Z   ;== D- Z   ;   ==    D- Z   ;   =   A- Z   ;   =ö¼‚öA- Z   ;   =   A- Z   ;   =   A- Z   ;   =   A- Z   ;   =   A~ =go.string."func()" - Z   ;   == D~ =weak.type.*func() - Z   ;   == D- Z   ;    =A- Z   ;$   == <   D- Z   ;(   =A- Z   ;,   =A- Z   ;0   == <   D- Z   ;4   =A- Z   ;8   =A5 Z   ;
+=<   A~ =type.[]string ~ =type.*runtime.SliceType - Z   ;== D- Z   ;   ==    D- Z   ;   =   A- Z   ;   =Ó¨ó
+A- Z   ;   =   A- Z   ;   =   A- Z   ;   =   A- Z   ;   =   A~ =go.string."[]string" - Z   ;   == D~ =weak.type.*[]string - Z   ;   == D- Z   ;    == %D5 Z   ;
+=$   A~ =type.[2]string ~ =type.*runtime.ArrayType - Z   ;== D- Z   ;   ==    D- Z   ;   =   A- Z   ;   =PXåéA- Z   ;   =   A- Z   ;   =   A- Z   ;   =   A- Z   ;   =   A~ =go.string."[2]string" - Z   ;   == D~ =weak.type.*[2]string - Z   ;   == D- Z   ;    == %D- Z   ;$   == D- Z   ;(   =   A5 Z   ;
+=,   A~ = type.*[2]string ~ =!type.*runtime.PtrType - Z   ; == !D- Z   ;    ==     D- Z   ;    =   A- Z   ;    =f<A- Z   ;    =   A- Z   ;    =   A- Z   ;    =   A- Z   ;    =   A~ ="go.string."*[2]string" - Z   ;    == "D~ =#weak.type.**[2]string - Z   ;    == #D- Z   ;     == D5 Z   ;
+ =$   A~ =$type.func(int32) *[2]string - Z   ;$== D- Z   ;   $==    $D- Z   ;   $=   A- Z   ;   $=/œäËA- Z   ;   $=   A- Z   ;   $=   A- Z   ;   $=   A- Z   ;   $=   A~ =%go.string."func(int32) *[2]string" - Z   ;   $== %D~ =&weak.type.*func(int32) *[2]string - Z   ;   $== &D- Z   ;    $=A- Z   ;$   $== <   $D- Z   ;(   $=   A- Z   ;,   $=   A- Z   ;0   $== @   $D- Z   ;4   $=   A- Z   ;8   $=   A- Z   ;<   $== ,D- Z   ;@   $==  D5 Z   ;
+$=D   A~ ='type.func(string) (*template.Template, os.Error) - Z   ;'== D- Z   ;   '==    'D- Z   ;   '=   A- Z   ;   '=7é.A- Z   ;   '=   A- Z   ;   '=   A- Z   ;   '=   A- Z   ;   '=   A~ =(go.string."func(string) (*template.Template, os.Error)" - Z   ;   '== (D~ =)weak.type.*func(string) (*template.Template, os.Error) - Z   ;   '== )D- Z   ;    '=A- Z   ;$   '== <   'D- Z   ;(   '=   A- Z   ;,   '=   A- Z   ;0   '== @   'D- Z   ;4   '=   A- Z   ;8   '=   A~ =*type.string - Z   ;<   '== *D- Z   ;@   '== D~ =+type.os.Error - Z   ;D   '== +D5 Z   ;
+'=H   A~ =,type.func(*template.Template, os.Error) *template.Template - Z   ;,== D- Z   ;   ,==    ,D- Z   ;   ,=   A- Z   ;   ,=m¤gÝA- Z   ;   ,=   A- Z   ;   ,=   A- Z   ;   ,=   A- Z   ;   ,=   A~ =-go.string."func(*template.Template, os.Error) *template.Template" - Z   ;   ,== -D~ =.weak.type.*func(*template.Template, os.Error) *template.Template - Z   ;   ,== .D- Z   ;    ,=A- Z   ;$   ,== <   ,D- Z   ;(   ,=   A- Z   ;,   ,=   A- Z   ;0   ,== D   ,D- Z   ;4   ,=   A- Z   ;8   ,=   A- Z   ;<   ,== D- Z   ;@   ,== +D- Z   ;D   ,== D5 Z   ;
+,=H   A~ =/type.func(*uint8, map[string] *template.Template, string, *template.Template) - Z   ;/== D- Z   ;   /==    /D- Z   ;   /=   A- Z   ;   /=ÔA- Z   ;   /=   A- Z   ;   /=   A- Z   ;   /=   A- Z   ;   /=   A~ =0go.string."func(*uint8, map[string] *template.Template, string, *template.Template)" - Z   ;   /== 0D~ =1weak.type.*func(*uint8, map[string] *template.Template, string, *template.Template) - Z   ;   /== 1D- Z   ;    /=A- Z   ;$   /== <   /D- Z   ;(   /=   A- Z   ;,   /=   A- Z   ;0   /== L   /D- Z   ;4   /=A- Z   ;8   /=A~ =type.*uint8 - Z   ;<   /== D- Z   ;@   /== D- Z   ;D   /== *D- Z   ;H   /== D5 Z   ;
+/=L   A~ =type.func(*uint8, map[string] *template.Template, string) *template.Template - Z   ;== D- Z   ;   ==    D- Z   ;   =   A- Z   ;   =ç¶¶A- Z   ;   =   A- Z   ;   =   A- Z   ;   =   A- Z   ;   =   A~ =go.string."func(*uint8, map[string] *template.Template, string) *template.Template" - Z   ;   == D~ =weak.type.*func(*uint8, map[string] *template.Template, string) *template.Template - Z   ;   == D- Z   ;    =A- Z   ;$   == <   D- Z   ;(   =   A- Z   ;,   =   A- Z   ;0   == H   D- Z   ;4   =   A- Z   ;8   =   A- Z   ;<   == D- Z   ;@   == D- Z   ;D   == *D- Z   ;H   == D5 Z   ;
+=L   A~ =type.func(*uint8, http.ResponseWriter) io.Writer - Z   ;== D- Z   ;   ==    D- Z   ;   =   A- Z   ;   =KÁ ¾A- Z   ;   =   A- Z   ;   =   A- Z   ;   =   A- Z   ;   =   A~ =go.string."func(*uint8, http.ResponseWriter) io.Writer" - Z   ;   == D~ =weak.type.*func(*uint8, http.ResponseWriter) io.Writer - Z   ;   == D- Z   ;    =A- Z   ;$   == <   D- Z   ;(   =   A- Z   ;,   =   A- Z   ;0   == D   D- Z   ;4   =   A- Z   ;8   =   A- Z   ;<   == D~ =type.http.ResponseWriter - Z   ;@   == D~ =	type.io.Writer - Z   ;D   == 	D5 Z   ;
+=H   A~ =
+type.interface { } ~ =type.*runtime.InterfaceType - Z   ;
+== D- Z   ;   
+==    
+D- Z   ;   
+=   A- Z   ;   
+=ô¤BóA- Z   ;   
+=   A- Z   ;   
+=   A- Z   ;   
+=   A- Z   ;   
+=   A~ =go.string."interface { }" - Z   ;   
+== D~ =weak.type.*interface { } - Z   ;   
+== D- Z   ;    
+== ,   
+D- Z   ;$   
+=A- Z   ;(   
+=A5 Z   ;
+
+=,   A~ =type.func(*uint8, *"".Page) interface { } - Z   ;== D- Z   ;   ==    D- Z   ;   =   A- Z   ;   =FNQA- Z   ;   =   A- Z   ;   =   A- Z   ;   =   A- Z   ;   =   A~ =go.string."func(*uint8, *main.Page) interface { }" - Z   ;   == D~ =weak.type.*func(*uint8, *"".Page) interface { } - Z   ;   == D- Z   ;    =A- Z   ;$   == <   D- Z   ;(   =   A- Z   ;,   =   A- Z   ;0   == D   D- Z   ;4   =   A- Z   ;8   =   A- Z   ;<   == D~ =type.*"".Page - Z   ;@   == D- Z   ;D   == 
+D5 Z   ;
+=H   A~ =type.func(func(http.ResponseWriter, *http.Request, string)) http.HandlerFunc - Z   ;== D- Z   ;   ==    D- Z   ;   =   A- Z   ;   =ÑŸì…A- Z   ;   =   A- Z   ;   =   A- Z   ;   =   A- Z   ;   =   A~ =go.string."func(func(http.ResponseWriter, *http.Request, string)) http.HandlerFunc" - Z   ;   == D~ =weak.type.*func(func(http.ResponseWriter, *http.Request, string)) http.HandlerFunc - Z   ;   == D- Z   ;    =A- Z   ;$   == <   D- Z   ;(   =   A- Z   ;,   =   A- Z   ;0   == @   D- Z   ;4   =   A- Z   ;8   =   A~ =type.func(http.ResponseWriter, *http.Request, string) - Z   ;<   == D~ =type.http.HandlerFunc - Z   ;@   == D5 Z   ;
+=D   A~ =type.*func(http.ResponseWriter, *http.Request, string) - Z   ;== !D- Z   ;   ==    D- Z   ;   =   A- Z   ;   =YwõA- Z   ;   =   A- Z   ;   =   A- Z   ;   =   A- Z   ;   =   A~ =go.string."*func(http.ResponseWriter, *http.Request, string)" - Z   ;   == D~ =weak.type.**func(http.ResponseWriter, *http.Request, string) - Z   ;   == D- Z   ;    == D5 Z   ;
+=$   A~ =type.func(int32) *func(http.ResponseWriter, *http.Request, string) ~ =type.*runtime.FuncType - Z   ;== D- Z   ;   ==    D- Z   ;   =   A- Z   ;   =IÕÚèA- Z   ;   =   A- Z   ;   =   A- Z   ;   =   A- Z   ;   =   A~ =go.string."func(int32) *func(http.ResponseWriter, *http.Request, string)" - Z   ;   == D~ =weak.type.*func(int32) *func(http.ResponseWriter, *http.Request, string) - Z   ;   == D- Z   ;    =A- Z   ;$   == <   D- Z   ;(   =   A- Z   ;,   =   A- Z   ;0   == @   D- Z   ;4   =   A- Z   ;8   =   A~ =type.int32 - Z   ;<   == D- Z   ;@   == D5 Z   ;
+=D   A~ =type.func(*func(http.ResponseWriter, *http.Request, string), uintptr, http.ResponseWriter, *http.Request) - Z   ;== D- Z   ;   ==    D- Z   ;   =   A- Z   ;   =ZZ¸¼A- Z   ;   =   A- Z   ;   =   A- Z   ;   =   A- Z   ;   =   A~ = go.string."func(*func(http.ResponseWriter, *http.Request, string), uintptr, http.ResponseWriter, *http.Request)" - Z   ;   ==  D~ =!weak.type.*func(*func(http.ResponseWriter, *http.Request, string), uintptr, http.ResponseWriter, *http.Request) - Z   ;   == !D- Z   ;    =A- Z   ;$   == <   D- Z   ;(   =   A- Z   ;,   =   A- Z   ;0   == L   D- Z   ;4   =A- Z   ;8   =A- Z   ;<   == D~ ="type.uintptr - Z   ;@   == "D- Z   ;D   == D~ =#type.*http.Request - Z   ;H   == #D5 Z   ;
+=L   A~ =$type.func(http.ResponseWriter, *http.Request) - Z   ;$== D- Z   ;   $==    $D- Z   ;   $=   A- Z   ;   $=‘ô›A- Z   ;   $=   A- Z   ;   $=   A- Z   ;   $=   A- Z   ;   $=   A~ =%go.string."func(http.ResponseWriter, *http.Request)" - Z   ;   $== %D~ =&weak.type.*func(http.ResponseWriter, *http.Request) - Z   ;   $== &D- Z   ;    $=A- Z   ;$   $== <   $D- Z   ;(   $=   A- Z   ;,   $=   A- Z   ;0   $== D   $D- Z   ;4   $=A- Z   ;8   $=A- Z   ;<   $== D- Z   ;@   $== #D5 Z   ;
+$=D   A~ ='type.func(int, func(*func(http.ResponseWriter, *http.Request, string), uintptr, http.ResponseWriter, *http.Request), *func(http.ResponseWriter, *http.Request, string)) func(http.ResponseWriter, *http.Request) - Z   ;'== D- Z   ;   '==    'D- Z   ;   '=   A- Z   ;   '=ï§†¸A- Z   ;   '=   A- Z   ;   '=   A- Z   ;   '=   A- Z   ;   '=   A~ =(""..gostring.1 - Z   ;   '== (D~ =)weak.type.*func(int, func(*func(http.ResponseWriter, *http.Request, string), uintptr, http.ResponseWriter, *http.Request), *func(http.ResponseWriter, *http.Request, string)) func(http.ResponseWriter, *http.Request) - Z   ;   '== )D- Z   ;    '=A- Z   ;$   '== <   'D- Z   ;(   '=   A- Z   ;,   '=   A- Z   ;0   '== H   'D- Z   ;4   '=   A- Z   ;8   '=   A~ =*type.int - Z   ;<   '== *D- Z   ;@   '== D- Z   ;D   '== D- Z   ;H   '== $D5 Z   ;
+'=L   A~ =+type.func(string, func(http.ResponseWriter, *http.Request)) - Z   ;+== D- Z   ;   +==    +D- Z   ;   +=   A- Z   ;   +=úã–A- Z   ;   +=   A- Z   ;   +=   A- Z   ;   +=   A- Z   ;   +=   A~ =,go.string."func(string, func(http.ResponseWriter, *http.Request))" - Z   ;   +== ,D~ =-weak.type.*func(string, func(http.ResponseWriter, *http.Request)) - Z   ;   +== -D- Z   ;    +=A- Z   ;$   +== <   +D- Z   ;(   +=   A- Z   ;,   +=   A- Z   ;0   +== D   +D- Z   ;4   +=A- Z   ;8   +=A~ =.type.string - Z   ;<   +== .D- Z   ;@   +== $D5 Z   ;
++=D   A~ =/type.func(string, http.Handler) os.Error - Z   ;/== D- Z   ;   /==    /D- Z   ;   /=   A- Z   ;   /=sÕ›SA- Z   ;   /=   A- Z   ;   /=   A- Z   ;   /=   A- Z   ;   /=   A~ =0go.string."func(string, http.Handler) os.Error" - Z   ;   /== 0D~ =1weak.type.*func(string, http.Handler) os.Error - Z   ;   /== 1D- Z   ;    /=A- Z   ;$   /== <   /D- Z   ;(   /=   A- Z   ;,   /=   A- Z   ;0   /== D   /D- Z   ;4   /=   A- Z   ;8   /=   A- Z   ;<   /== .D~ =type.http.Handler - Z   ;@   /== D~ =type.os.Error - Z   ;D   /== D5 Z   ;
+/=H   A~ =type.func(*uint8, int64) map[string] *template.Template - Z   ;== D- Z   ;   ==    D- Z   ;   =   A- Z   ;   =³?RjA- Z   ;   =   A- Z   ;   =   A- Z   ;   =   A- Z   ;   =   A~ =go.string."func(*uint8, int64) map[string] *template.Template" - Z   ;   == D~ =weak.type.*func(*uint8, int64) map[string] *template.Template - Z   ;   == D- Z   ;    =A- Z   ;$   == <   D- Z   ;(   =   A- Z   ;,   =   A- Z   ;0   == D   D- Z   ;4   =   A- Z   ;8   =   A~ =type.*uint8 - Z   ;<   == D~ =type.int64 - Z   ;@   == D~ =type.map[string] *template.Template - Z   ;D   == D5 Z   ;
+=H   A~ =	type.func(string) *regexp.Regexp - Z   ;	== D- Z   ;   	==    	D- Z   ;   	=   A- Z   ;   	=šZ„ A- Z   ;   	=   A- Z   ;   	=   A- Z   ;   	=   A- Z   ;   	=   A~ =
+go.string."func(string) *regexp.Regexp" - Z   ;   	== 
+D~ =weak.type.*func(string) *regexp.Regexp - Z   ;   	== D- Z   ;    	=A- Z   ;$   	== <   	D- Z   ;(   	=   A- Z   ;,   	=   A- Z   ;0   	== @   	D- Z   ;4   	=   A- Z   ;8   	=   A- Z   ;<   	== .D~ =type.*regexp.Regexp - Z   ;@   	== D5 Z   ;
+	=D   A~ =type.func(string, int) string - Z   ;== D- Z   ;   ==    D- Z   ;   =   A- Z   ;   =°Õ‘ÀA- Z   ;   =   A- Z   ;   =   A- Z   ;   =   A- Z   ;   =   A~ =go.string."func(string, int) string" - Z   ;   == D~ =weak.type.*func(string, int) string - Z   ;   == D- Z   ;    =A- Z   ;$   == <   D- Z   ;(   =   A- Z   ;,   =   A- Z   ;0   == D   D- Z   ;4   =   A- Z   ;8   =   A- Z   ;<   == .D- Z   ;@   == *D- Z   ;D   == .D5 Z   ;
+=H   A~ =go.importpath.io/ioutil. ~ =go.string."io/ioutil" - Z   ;==    D- Z   ;   =	   A5 Z   ;
+=   A~ =go.importpath.template. ~ =go.string."template" - Z   ;==    D- Z   ;   =   A5 Z   ;
+=   A~ =go.importpath.runtime. ~ =go.string."runtime" - Z   ;==    D- Z   ;   =   A5 Z   ;
+=   A~ =go.importpath.os. ~ =go.string."os" - Z   ;==    D- Z   ;   =   A5 Z   ;
+=   A~ =go.importpath.http. ~ =go.string."http" - Z   ;==    D- Z   ;   =   A5 Z   ;
+=   A~ =go.importpath.regexp. ~ =go.string."regexp" - Z   ;==    D- Z   ;   =   A5 Z   ;
+=   A~ =go.string.".txt" -    ;==    D-    ;   =   A-    ;   = .txt    -    ;   =A5    ;
+=   A~ =go.string."/edit/" -    ;==    D-    ;   =   A-    ;   = /edit/  -    ;   =A5    ;
+=   A~ =go.string."view" - "   ;==    D- "   ;   =   A- "   ;   = view    - "   ;   =A5 "   ;
+=   A~ =go.string."edit" - *   ;==    D- *   ;   =   A- *   ;   = edit    - *   ;   =A5 *   ;
+=   A~ = go.string."body" - .   ; ==     D- .   ;    =   A- .   ;    = body    - .   ;    =A5 .   ;
+ =   A~ =!go.string."/view/" - 5   ;!==    !D- 5   ;   !=   A- 5   ;   != /view/  - 5   ;   !=A5 5   ;
+!=   A~ ="go.string.".html" - ;   ;"==    "D- ;   ;   "=   A- ;   ;   "= .html   - ;   ;   "=A5 ;   ;
+"=   A~ =#go.string."/save/" - X   ;#==    #D- X   ;   #=   A- X   ;   #= /save/  - X   ;   #=A5 X   ;
+#=   A~ =$go.string.":8080" - Y   ;$==    $D- Y   ;   $=   A- Y   ;   $= :8080   - Y   ;   $=A5 Y   ;
+$=   A~ =%go.string."^[a-zA-Z0-9]+$" - H   ;%==    %D- H   ;   %=   A- H   ;   %= ^[a-zA-Z- H   ;   %= 0-9]+$  - H   ;   %=A5 H   ;
+%=   A~ =&go.string."[]uint8" - Z   ;&==    &D- Z   ;   &=   A- Z   ;   &= []uint8 - Z   ;   &=A5 Z   ;
+&=   A~ ='go.string."main.Page" - Z   ;'==    'D- Z   ;   '=	   A- Z   ;   '= main.Pag- Z   ;   '= e       - Z   ;   '=A5 Z   ;
+'=   A~ =(go.string."Title" - Z   ;(==    (D- Z   ;   (=   A- Z   ;   (= Title   - Z   ;   (=A5 Z   ;
+(=   A~ =)go.string."Body" - Z   ;)==    )D- Z   ;   )=   A- Z   ;   )= Body    - Z   ;   )=A5 Z   ;
+)=   A~ =*go.string."Page" - Z   ;*==    *D- Z   ;   *=   A- Z   ;   *= Page    - Z   ;   *=A5 Z   ;
+*=   A~ =+go.string."*main.Page" - Z   ;+==    +D- Z   ;   +=
+   A- Z   ;   += *main.Pa- Z   ;   += ge      - Z   ;   +=A5 Z   ;
++=   A~ =,go.string."func(*main.Page) os.Error" - Z   ;,==    ,D- Z   ;   ,=   A- Z   ;   ,= func(*ma- Z   ;   ,= in.Page)- Z   ;   ,=  os.Erro- Z   ;    ,= r       - Z   ;!   ,=A5 Z   ;
+,=$   A~ =-go.string."save" - Z   ;-==    -D- Z   ;   -=   A- Z   ;   -= save    - Z   ;   -=A5 Z   ;
+-=   A~ =.go.string."func() os.Error" - Z   ;.==    .D- Z   ;   .=   A- Z   ;   .= func() o- Z   ;   .= s.Error - Z   ;   .=A5 Z   ;
+.=   A~ =/go.string."method(p *main.Page)func() os.Error" - Z   ;/==    /D- Z   ;   /=#   A- Z   ;   /= method(p- Z   ;   /=  *main.P- Z   ;   /= age)func- Z   ;    /= () os.Er- Z   ;(   /= ror     - Z   ;+   /=A5 Z   ;
+/=,   A~ =0go.string."func(int, string, string) string" - Z   ;0==    0D- Z   ;   0=    A- Z   ;   0= func(int- Z   ;   0= , string- Z   ;   0= , string- Z   ;    0= ) string- Z   ;(   0=A5 Z   ;
+0=,   A~ =1go.string."func(string, []uint8, uint32) os.Error" - Z   ;1==    1D- Z   ;   1=&   A- Z   ;   1= func(str- Z   ;   1= ing, []u- Z   ;   1= int8, ui- Z   ;    1= nt32) os- Z   ;(   1= .Error  - Z   ;.   1=A5 Z   ;
+1=0   A~ =go.string."func(string) (*main.Page, os.Error)" - Z   ;==    D- Z   ;   =#   A- Z   ;   = func(str- Z   ;   = ing) (*m- Z   ;   = ain.Page- Z   ;    = , os.Err- Z   ;(   = or)     - Z   ;+   =A5 Z   ;
+=,   A~ =go.string."func(string) ([]uint8, os.Error)" - Z   ;==    D- Z   ;   =    A- Z   ;   = func(str- Z   ;   = ing) ([]- Z   ;   = uint8, o- Z   ;    = s.Error)- Z   ;(   =A5 Z   ;
+=,   A~ =go.string."func(int32) *main.Page" - Z   ;==    D- Z   ;   =   A- Z   ;   = func(int- Z   ;   = 32) *mai- Z   ;   = n.Page  - Z   ;   =A5 Z   ;
+=    A~ =go.string."func(http.ResponseWriter, *http.Request, string)" - Z   ;==    D- Z   ;   =0   A- Z   ;   = func(htt- Z   ;   = p.Respon- Z   ;   = seWriter- Z   ;    = , *http.- Z   ;(   = Request,- Z   ;0   =  string)- Z   ;8   =A5 Z   ;
+=<   A~ =go.string."func(http.ResponseWriter, *http.Request, string, int)" - Z   ;==    D- Z   ;   =5   A- Z   ;   = func(htt- Z   ;   = p.Respon- Z   ;   = seWriter- Z   ;    = , *http.- Z   ;(   = Request,- Z   ;0   =  string,- Z   ;8   =  int)   - Z   ;=   =A5 Z   ;
+=@   A~ =go.string."func(http.ResponseWriter, string, *main.Page)" - Z   ;==    D- Z   ;   =-   A- Z   ;   = func(htt- Z   ;   = p.Respon- Z   ;   = seWriter- Z   ;    = , string- Z   ;(   = , *main.- Z   ;0   = Page)   - Z   ;5   =A5 Z   ;
+=8   A~ =go.string."func(string) []uint8" - Z   ;==    D- Z   ;   =   A- Z   ;   = func(str- Z   ;   = ing) []u- Z   ;   = int8    - Z   ;   =A5 Z   ;
+=    A~ =go.string."func(http.ResponseWriter, string, int)" - Z   ;==    D- Z   ;   =&   A- Z   ;   = func(htt- Z   ;   = p.Respon- Z   ;   = seWriter- Z   ;    = , string- Z   ;(   = , int)  - Z   ;.   =A5 Z   ;
+=0   A~ =	go.string."map[string] *template.Template" - Z   ;	==    	D- Z   ;   	=   A- Z   ;   	= map[stri- Z   ;   	= ng] *tem- Z   ;   	= plate.Te- Z   ;    	= mplate  - Z   ;&   	=A5 Z   ;
+	=(   A~ =
+go.string."func()" - Z   ;
+==    
+D- Z   ;   
+=   A- Z   ;   
+= func()  - Z   ;   
+=A5 Z   ;
+
+=   A~ =go.string."[]string" - Z   ;==    D- Z   ;   =   A- Z   ;   = []string- Z   ;   =A5 Z   ;
+=   A~ =go.string."[2]string" - Z   ;==    D- Z   ;   =	   A- Z   ;   = [2]strin- Z   ;   = g       - Z   ;   =A5 Z   ;
+=   A~ =go.string."*[2]string" - Z   ;==    D- Z   ;   =
+   A- Z   ;   = *[2]stri- Z   ;   = ng      - Z   ;   =A5 Z   ;
+=   A~ =go.string."func(int32) *[2]string" - Z   ;==    D- Z   ;   =   A- Z   ;   = func(int- Z   ;   = 32) *[2]- Z   ;   = string  - Z   ;   =A5 Z   ;
+=    A~ =go.string."func(string) (*template.Template, os.Error)" - Z   ;==    D- Z   ;   =+   A- Z   ;   = func(str- Z   ;   = ing) (*t- Z   ;   = emplate.- Z   ;    = Template- Z   ;(   = , os.Err- Z   ;0   = or)     - Z   ;3   =A5 Z   ;
+=4   A~ =go.string."func(*template.Template, os.Error) *template.Template" - Z   ;==    D- Z   ;   =5   A- Z   ;   = func(*te- Z   ;   = mplate.T- Z   ;   = emplate,- Z   ;    =  os.Erro- Z   ;(   = r) *temp- Z   ;0   = late.Tem- Z   ;8   = plate   - Z   ;=   =A5 Z   ;
+=@   A~ =go.string."func(*uint8, map[string] *template.Template, string, *template.Template)" - Z   ;==    D- Z   ;   =H   A- Z   ;   = func(*ui- Z   ;   = nt8, map- Z   ;   = [string]- Z   ;    =  *templa- Z   ;(   = te.Templ- Z   ;0   = ate, str- Z   ;8   = ing, *te- Z   ;@   = mplate.T- Z   ;H   = emplate)- Z   ;P   =A5 Z   ;
+=T   A~ =go.string."func(*uint8, map[string] *template.Template, string) *template.Template" - Z   ;==    D- Z   ;   =G   A- Z   ;   = func(*ui- Z   ;   = nt8, map- Z   ;   = [string]- Z   ;    =  *templa- Z   ;(   = te.Templ- Z   ;0   = ate, str- Z   ;8   = ing) *te- Z   ;@   = mplate.T- Z   ;H   = emplate - Z   ;O   =A5 Z   ;
+=P   A~ =go.string."func(*uint8, http.ResponseWriter) io.Writer" - Z   ;==    D- Z   ;   =+   A- Z   ;   = func(*ui- Z   ;   = nt8, htt- Z   ;   = p.Respon- Z   ;    = seWriter- Z   ;(   = ) io.Wri- Z   ;0   = ter     - Z   ;3   =A5 Z   ;
+=4   A~ =go.string."interface { }" - Z   ;==    D- Z   ;   =   A- Z   ;   = interfac- Z   ;   = e { }   - Z   ;   =A5 Z   ;
+=   A~ =go.string."func(*uint8, *main.Page) interface { }" - Z   ;==    D- Z   ;   =&   A- Z   ;   = func(*ui- Z   ;   = nt8, *ma- Z   ;   = in.Page)- Z   ;    =  interfa- Z   ;(   = ce { }  - Z   ;.   =A5 Z   ;
+=0   A~ =go.string."func(func(http.ResponseWriter, *http.Request, string)) http.HandlerFunc" - Z   ;==    D- Z   ;   =G   A- Z   ;   = func(fun- Z   ;   = c(http.R- Z   ;   = esponseW- Z   ;    = riter, *- Z   ;(   = http.Req- Z   ;0   = uest, st- Z   ;8   = ring)) h- Z   ;@   = ttp.Hand- Z   ;H   = lerFunc - Z   ;O   =A5 Z   ;
+=P   A~ =go.string."*func(http.ResponseWriter, *http.Request, string)" - Z   ;==    D- Z   ;   =1   A- Z   ;   = *func(ht- Z   ;   = tp.Respo- Z   ;   = nseWrite- Z   ;    = r, *http- Z   ;(   = .Request- Z   ;0   = , string- Z   ;8   = )       - Z   ;9   =A5 Z   ;
+=<   A~ =go.string."func(int32) *func(http.ResponseWriter, *http.Request, string)" - Z   ;==    D- Z   ;   ==   A- Z   ;   = func(int- Z   ;   = 32) *fun- Z   ;   = c(http.R- Z   ;    = esponseW- Z   ;(   = riter, *- Z   ;0   = http.Req- Z   ;8   = uest, st- Z   ;@   = ring)   - Z   ;E   =A5 Z   ;
+=H   A~ =go.string."func(*func(http.ResponseWriter, *http.Request, string), uintptr, http.ResponseWriter, *http.Request)" - Z   ;==    D- Z   ;   =d   A- Z   ;   = func(*fu- Z   ;   = nc(http.- Z   ;   = Response- Z   ;    = Writer, - Z   ;(   = *http.Re- Z   ;0   = quest, s- Z   ;8   = tring), - Z   ;@   = uintptr,- Z   ;H   =  http.Re- Z   ;P   = sponseWr- Z   ;X   = iter, *h- Z   ;`   = ttp.Requ- Z   ;h   = est)    - Z   ;l   =A5 Z   ;
+=p   A~ =go.string."func(http.ResponseWriter, *http.Request)" - Z   ;==    D- Z   ;   =(   A- Z   ;   = func(htt- Z   ;   = p.Respon- Z   ;   = seWriter- Z   ;    = , *http.- Z   ;(   = Request)- Z   ;0   =A5 Z   ;
+=4   A~ =""..gostring.1 - Z   ;==    D- Z   ;   =Ë   A- Z   ;   = func(int- Z   ;   = , func(*- Z   ;   = func(htt- Z   ;    = p.Respon- Z   ;(   = seWriter- Z   ;0   = , *http.- Z   ;8   = Request,- Z   ;@   =  string)- Z   ;H   = , uintpt- Z   ;P   = r, http.- Z   ;X   = Response- Z   ;`   = Writer, - Z   ;h   = *http.Re- Z   ;p   = quest), - Z   ;x   = *func(ht- Z   ;€   = tp.Respo- Z   ;ˆ   = nseWrite- Z   ;   = r, *http- Z   ;˜   = .Request- Z   ;    = , string- Z   ;¨   = )) func(- Z   ;°   = http.Res- Z   ;¸   = ponseWri- Z   ;À   = ter, *ht- Z   ;È   = tp.Reque- Z   ;Ð   = st)     - Z   ;Ó   =A5 Z   ;
+=Ô   A~ =go.string."func(string, func(http.ResponseWriter, *http.Request))" - Z   ;==    D- Z   ;   =6   A- Z   ;   = func(str- Z   ;   = ing, fun- Z   ;   = c(http.R- Z   ;    = esponseW- Z   ;(   = riter, *- Z   ;0   = http.Req- Z   ;8   = uest))  - Z   ;>   =A5 Z   ;
+=@   A~ =go.string."func(string, http.Handler) os.Error" - Z   ;==    D- Z   ;   =#   A- Z   ;   = func(str- Z   ;   = ing, htt- Z   ;   = p.Handle- Z   ;    = r) os.Er- Z   ;(   = ror     - Z   ;+   =A5 Z   ;
+=,   A~ =go.string."func(*uint8, int64) map[string] *template.Template" - Z   ;==    D- Z   ;   =2   A- Z   ;   = func(*ui- Z   ;   = nt8, int- Z   ;   = 64) map[- Z   ;    = string] - Z   ;(   = *templat- Z   ;0   = e.Templa- Z   ;8   = te      - Z   ;:   =A5 Z   ;
+=<   A~ =go.string."func(string) *regexp.Regexp" - Z   ;==    D- Z   ;   =   A- Z   ;   = func(str- Z   ;   = ing) *re- Z   ;   = gexp.Reg- Z   ;    = exp     - Z   ;#   =A5 Z   ;
+=$   A~ = go.string."func(string, int) string" - Z   ; ==     D- Z   ;    =   A- Z   ;    = func(str- Z   ;    = ing, int- Z   ;    = ) string- Z   ;     =A5 Z   ;
+ =$   A~ =!go.string."io/ioutil" - Z   ;!==    !D- Z   ;   !=	   A- Z   ;   != io/iouti- Z   ;   != l       - Z   ;   !=A5 Z   ;
+!=   A~ ="go.string."template" - Z   ;"==    "D- Z   ;   "=   A- Z   ;   "= template- Z   ;   "=A5 Z   ;
+"=   A~ =#go.string."runtime" - Z   ;#==    #D- Z   ;   #=   A- Z   ;   #= runtime - Z   ;   #=A5 Z   ;
+#=   A~ =$go.string."os" - Z   ;$==    $D- Z   ;   $=   A- Z   ;   $= os      - Z   ;
+   $=A5 Z   ;
+$=   A~ =%go.string."http" - Z   ;%==    %D- Z   ;   %=   A- Z   ;   %= http    - Z   ;   %=A5 Z   ;
+%=   A~ =&go.string."regexp" - Z   ;&==    &D- Z   ;   &=   A- Z   ;   &= regexp  - Z   ;   &=A5 Z   ;
+&=   AN      
