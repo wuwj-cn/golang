@@ -1,4 +1,5 @@
 package main
+
 import (
 	"fmt"
 )
@@ -12,17 +13,17 @@ func un(s string) {
 	fmt.Println("leaving: ", s)
 }
 
-func a(){
+func a() {
 	defer un(trace("a"))
 	fmt.Println("in a")
 }
 
-func b(){
+func b() {
 	defer un(trace("b"))
 	fmt.Println("in b")
 	a()
 }
 
-func main(){
+func main() {
 	b()
 }

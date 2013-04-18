@@ -5,20 +5,22 @@ import (
 )
 
 type File struct {
-	fd int
+	fd   int
 	name string
 }
 
 var (
-	Stdin = newFile(0, "/dev/stdin")
+	Stdin  = newFile(0, "/dev/stdin")
 	Stdout = newFile(1, "/dev/stdout")
 	Stderr = newFile(2, "/dev/stderr")
 )
+
 func newFile(fd int, name string) *File {
 	if fd < 0 {
 		return nil
 	}
-	return &File{fd, name} }
+	return &File{fd, name}
+}
 
 func Open(name string, mode int, perm uint32) (file *File, err error) {
 	r, e := syscall.Open(name, mode, perm)

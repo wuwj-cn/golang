@@ -5,8 +5,8 @@ import (
 	"sync"
 )
 
-var c = make(chan int);
-var c2 = make(chan int, 1);
+var c = make(chan int)
+var c2 = make(chan int, 1)
 var a string
 var a2 string
 var once sync.Once

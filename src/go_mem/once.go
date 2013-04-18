@@ -13,7 +13,7 @@ var l sync.Mutex
 func setup() {
 	fmt.Println("set a value")
 	a = "hello"
-//	l.Unlock()
+	//	l.Unlock()
 }
 
 func doPrint() {
@@ -23,9 +23,9 @@ func doPrint() {
 }
 func main() {
 	fmt.Println("run main")
-//	l.Lock()
+	//	l.Lock()
 	go doPrint()
-//	l.Lock()
+	//	l.Lock()
 	go doPrint()
-	time.Sleep(5*1e9)
+	time.Sleep(5 * 1e9)
 }

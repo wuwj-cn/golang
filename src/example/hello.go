@@ -1,11 +1,13 @@
 package main
 
 import (
-	"fmt"
 	"example/newmath"
+	"fmt"
 )
 
 func main() {
-	fmt.Printf("hello\n")
+	m := `hello
+	world`
+	fmt.Printf("m = %s\n", m) 
 	fmt.Printf("hello world! Sqrt(2)=%v\n", newmath.Sqrt(2))
 }

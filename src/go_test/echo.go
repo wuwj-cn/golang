@@ -1,19 +1,22 @@
 package main
+
 import (
-	"os"
 	"flag"
+	"os"
 )
+
 var omitNewline = flag.Bool("n", false, "don't print final newline")
+
 const (
-	Space = " "
+	Space   = " "
 	Newline = "\n"
 )
 
-func main(){
+func main() {
 	flag.Parse()
 	var s string = ""
-	for i := 0; i<flag.NArg(); i++ {
-		if i>0 {
+	for i := 0; i < flag.NArg(); i++ {
+		if i > 0 {
 			s += Space
 		}
 		s += flag.Arg(i)

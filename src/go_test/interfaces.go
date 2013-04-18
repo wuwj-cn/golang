@@ -18,18 +18,18 @@ func (s Sequence) Swap(i, j int) {
 }
 
 func (s Sequence) String() string {
-/*	sort.Sort(s)
-	str := "["
-	for i, elem := range s {
-		fmt.Println(i)
-		fmt.Println(elem)
-		if i > 0 {
-			str += " "
+	/*	sort.Sort(s)
+		str := "["
+		for i, elem := range s {
+			fmt.Println(i)
+			fmt.Println(elem)
+			if i > 0 {
+				str += " "
+			}
+			str += fmt.Sprint(elem)
+			fmt.Println(str)
 		}
-		str += fmt.Sprint(elem)
-		fmt.Println(str)
-	}
-	return str + "]"
+		return str + "]"
 	*/
 	//sort.Sort(s)
 	sort.IntSlice(s).Sort()
@@ -37,6 +37,6 @@ func (s Sequence) String() string {
 }
 
 func main() {
-	v := Sequence{1,2,3}
+	v := Sequence{1, 2, 3}
 	fmt.Println(v)
 }

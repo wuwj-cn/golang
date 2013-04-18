@@ -5,10 +5,10 @@ import (
 	"os"
 )
 
-func main(){
+func main() {
 	var (
-		HOME = os.Getenv("HOME")
-		USER = os.Getenv("USER")
+		HOME   = os.Getenv("HOME")
+		USER   = os.Getenv("USER")
 		GOROOT = os.Getenv("GOROOT")
 	)
 	fmt.Println("HOME: ", HOME)
